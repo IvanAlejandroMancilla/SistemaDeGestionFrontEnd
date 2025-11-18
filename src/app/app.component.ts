@@ -4,6 +4,8 @@ import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
 import { apiDashboardDashboardGet } from './api/fn/dashboard/api-dashboard-dashboard-get';
+import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -18,12 +20,10 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // 🔹 Esto es solo para probar que Angular está corriendo
-    console.log('AppComponent inicializado ✅');
 
-    const rootUrl = 'https://localhost:7232';
+    console.log('AppComponent inicializado');
 
-    apiDashboardDashboardGet(this.http, rootUrl).subscribe({
+    apiDashboardDashboardGet(this.http, environment.urlBack).subscribe({
       next: (response) => {
         console.log('Dashboard OK:', response);
         console.log('Status:', response.status);
