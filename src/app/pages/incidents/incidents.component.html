@@ -5,11 +5,68 @@
   </h3>
 
   <div class="cards-grid">
-    <div class="element-container">
+    <ng-container *ngIf="resumenIncident; else loading">
+      <div class="element-container">
+        <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Total de Incidentes</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.total }}
+        </span>
+        <span class="textspan">Historico</span>
+      </div>
+
+      <div class="element-container">
+        <i
+          class="pi pi-exclamation-circle"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Abiertos</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.abierto }}
+        </span>
+        <span class="textspan">Requieren atención</span>
+      </div>
+
+      <div class="element-container">
+        <i
+          class="pi pi-verified"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Aprobados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.aprobado }}
+        </span>
+        <span class="textspan">Prioridad máxima</span>
+      </div>
+
+      <div class="element-container">
+        <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Finalizados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.finalizado }}
+        </span>
+        <span class="textspan">Incidentes concluidos</span>
+      </div>
+
+      <div class="element-container">
+        <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Cancelados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.cancelado }}
+        </span>
+        <span class="textspan">Falsos Positivos</span>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <p-progress-spinner ariaLabel="loading" />
+      <!-- O un mensaje simple: <p>Cargando datos...</p> -->
+    </ng-template>
+    <!-- <div class="element-container">
       <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
       <h4 class="page-subtitle">Total de Incidentes</h4>
       <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
-      <span>Este mes</span>
+      <span class="textspan">Historico</span>
     </div>
 
     <div class="element-container">
@@ -19,24 +76,28 @@
       ></i>
       <h4 class="page-subtitle">Incidentes Abiertos</h4>
       <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
-      <span>Requieren atención</span>
+      <span class="textspan">Requieren atención</span>
     </div>
 
     <div class="element-container">
       <i class="pi pi-times-circle" style="font-size: 2rem; color: #3b82f6"></i>
-      <h4 class="page-subtitle">Incidentes Críticos</h4>
+      <h4 class="page-subtitle">Incidentes Aprobado</h4>
       <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
-      <span>Prioridad máxima</span>
+      <span class="textspan">Prioridad máxima</span>
     </div>
 
     <div class="element-container">
       <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
-      <h4 class="page-subtitle">Tiempo Promedio Resolución</h4>
-      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50"
-        >0h</span
-      >
-      <span>Promedio mensual</span>
+      <h4 class="page-subtitle">Incidentes Finalizado</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0h</span>
+      <span class="textspan">Incidentes concluidos</span>
     </div>
+        <div class="element-container">
+      <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+      <h4 class="page-subtitle">Incidentes Cancelados</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0h</span>
+      <span class="textspan">Falsos Positivos</span>
+    </div> -->
   </div>
 
   <!--container Tabla-->

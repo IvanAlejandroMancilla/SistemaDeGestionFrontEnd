@@ -14,8 +14,9 @@ import { apiIncidentsListaIncidentsGet } from '../../api/functions';
 import { environment } from '../../../environments/environment';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { apiDashboardDashboardGet } from '../../api/functions';
+import { ResumenIncident } from './model/ResumenIncident'
+import { ProgressSpinnerModule, ProgressSpinner } from 'primeng/progressspinner';
 
 
 @Component({
@@ -33,12 +34,48 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MultiSelectModule,
     SelectModule,
     FormsModule,
-    PaginatorModule
-  ],
+    PaginatorModule,
+    ProgressSpinner
+],
   templateUrl: './incidents.component.html',
   styleUrl: './incidents.component.css',
 })
+
 export class IncidentsComponent implements OnInit {
+  //API resumen Incidentes
+
+  resumenIncident!: ResumenIncident; // El ! indica que se inicializará después
+
+  loadDashboardSummary() {
+  const rootUrl = environment.urlBack;
+  apiDashboardDashboardGet(this.http, rootUrl).subscribe({
+    next: (response: any) => {
+      const body = typeof response.body === 'string'
+        ? JSON.parse(response.body)
+        : response.body;
+
+      const statusCounts = body?.JsonResponse?.[0]?.incidents_status_counts;
+
+      if (statusCounts) {
+        // Parseo directo del response al objeto
+        this.resumenIncident = {
+          total: statusCounts.Total,
+          abierto: statusCounts.Abierto,
+          aprobado: statusCounts.Aprobado,
+          cancelado: statusCounts.Cancelado,
+          finalizado: statusCounts.Finalizado
+        };
+        console.log('Dashboard Summary:', this.resumenIncident);
+      }
+    },
+    error: (error) => {
+      console.error('Error loading dashboard:', error);
+    }
+  });
+}
+
+
+  //API Lista Incidentes
   incidents: Incident[] = [];
   loading: boolean = true;
 
@@ -50,8 +87,8 @@ export class IncidentsComponent implements OnInit {
 
   ngOnInit() {
     this.loadIncidents();
+    this.loadDashboardSummary();
     console.log(this.loadIncidents);
-    console.log("esto es prueba", this.incidents);
   }
 
   loadIncidents() {
@@ -63,15 +100,12 @@ export class IncidentsComponent implements OnInit {
     next: (response: any) => {
       console.log('Respuesta cruda de API:', response);
 
-      // 1. Parsear el body si viene como string
       const body =
         typeof response.body === 'string'
           ? JSON.parse(response.body)
           : response.body;
 
       console.log('Body parseado:', body);
-
-      // 2. Ahora sí tomar el arreglo de incidentes
       this.incidents = body?.data ?? [];
 
       console.log('Incidents cargados:', this.incidents);
@@ -86,7 +120,6 @@ export class IncidentsComponent implements OnInit {
   });
 }
 
-
   extractFilterOptions() {
     // Extraer marcas únicas
     const uniqueBrands = [
@@ -94,7 +127,6 @@ export class IncidentsComponent implements OnInit {
     ];
     this.brands = uniqueBrands.map((brand) => ({ name: brand, value: brand }));
 
-    // Extraer estados de pala únicos
     const uniqueShovelStatuses = [
       ...new Set(this.incidents.map((i) => i.shovel.status.name)),
     ];
@@ -103,7 +135,6 @@ export class IncidentsComponent implements OnInit {
       value: status,
     }));
 
-    // Extraer estados de incidente únicos
     const uniqueIncidentStatuses = [
       ...new Set(this.incidents.map((i) => i.statusIncident.name)),
     ];
