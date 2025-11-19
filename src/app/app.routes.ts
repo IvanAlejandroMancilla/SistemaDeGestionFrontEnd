@@ -8,7 +8,7 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {
