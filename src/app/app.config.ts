@@ -12,9 +12,12 @@ export const appConfig: ApplicationConfig = {
     { eventCoalescing: true }),
           provideHttpClient(),
             providePrimeNG({
-              theme:{
-                preset: Aura
+              theme: {
+                preset: Aura,
+                options: {
+                darkModeSelector: 'none'
                     }
+              }
             }),
     provideRouter(routes)]
 };

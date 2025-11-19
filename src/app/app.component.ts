@@ -5,12 +5,13 @@ import { ButtonModule } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
 import { apiDashboardDashboardGet } from './api/fn/dashboard/api-dashboard-dashboard-get';
 import { environment } from '../environments/environment';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ButtonModule],
+  imports: [RouterOutlet, ButtonModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
