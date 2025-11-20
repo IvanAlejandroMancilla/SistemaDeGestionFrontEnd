@@ -188,6 +188,21 @@
   [appendTo]="'body'"
 >
 
+<app-incident-info-dialog></app-incident-info-dialog>
+</p-dialog>
 
+
+<p-dialog
+  header="Aprobar Incidente"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="true"
+  [(visible)]="visible"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [appendTo]="'body'"
+>
+
+<app-incident-edit-dialog></app-incident-edit-dialog>
 </p-dialog>
 </div>

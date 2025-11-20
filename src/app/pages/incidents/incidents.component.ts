@@ -18,6 +18,8 @@ import { apiDashboardDashboardGet } from '../../api/functions';
 import { ResumenIncident } from './model/ResumenIncident'
 import { ProgressSpinnerModule, ProgressSpinner } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
+import { IncidentEditDialogComponent } from './components/incident-edit-dialog/incident-edit-dialog.component';
+import { IncidentInfoDialogComponent } from './components/incident-info-dialog/incident-info-dialog.component';
 
 
 @Component({
@@ -37,7 +39,9 @@ import { DialogModule } from 'primeng/dialog';
     FormsModule,
     PaginatorModule,
     ProgressSpinner,
-    DialogModule
+    DialogModule,
+    IncidentEditDialogComponent,
+    IncidentInfoDialogComponent
 ],
   templateUrl: './incidents.component.html',
   styleUrl: './incidents.component.css',
@@ -185,9 +189,9 @@ export class IncidentsComponent implements OnInit {
     this.visible = true;
   }
 
-  editIncident(incident: any) {
-    // Lógica para editar el incidente (ej: abrir formulario de edición)
-    console.log('Editar incidente:', incident);
+  editIncident(item: any) {
+    console.log('Ver incidente:', item);
+    this.visible = true;
   }
 
 }

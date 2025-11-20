@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   name: 'development',
-  urlBack: "https://sistemagestion-d5adgrgrcdasewgk.chilecentral-01.azurewebsites.net"
+  urlBack: "https://localhost:7232"
 };
 
 /*
