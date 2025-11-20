@@ -59,6 +59,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 } */
 
+
+/*text area*/
+.p-inputtextarea {
+  resize: none !important;
+}
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

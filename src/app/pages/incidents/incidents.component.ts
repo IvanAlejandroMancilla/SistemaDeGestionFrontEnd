@@ -49,7 +49,8 @@ import { IncidentInfoDialogComponent } from './components/incident-info-dialog/i
 
 export class IncidentsComponent implements OnInit {
 
-  visible: boolean = false;
+  visibleEdit: boolean = false;
+  visibleView: boolean = false;
 
 
   //API resumen Incidentes
@@ -186,12 +187,12 @@ export class IncidentsComponent implements OnInit {
 
   viewIncident(item: any): void {
     console.log('Ver incidente:', item);
-    this.visible = true;
+    this.visibleView = true;
   }
 
-  editIncident(item: any) {
+  editIncient(item: any) {
     console.log('Ver incidente:', item);
-    this.visible = true;
+    this.visibleEdit = true;
   }
 
 }

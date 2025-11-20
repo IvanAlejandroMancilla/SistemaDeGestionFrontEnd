@@ -31,9 +31,19 @@
       </div>
     </div>
     <div class="element-container">
-      <div>
+      <div class="detail-row">
         <h4 class="page-subtitle">Estado Operacional</h4>
-        <p-tag value="Online" severity="danger"></p-tag>
+        <div class="cards-grid">
+          <p-tag value="Online" severity="danger"></p-tag>
+          <p-dropdown
+            [options]="estadosOperacionales"
+            formControlName="estadoOperacional"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Seleccionar estado"
+          >
+          </p-dropdown>
+        </div>
       </div>
       <div>
         <h4 class="page-subtitle">Descripción del Estado</h4>
@@ -57,54 +67,69 @@
 </p-divider>
 <div class="cards-grid">
   <ng-container>
-<div class="element-container">
-    <div class="detail-row">
-      <h4 class="page-subtitle">Id Incidente</h4>
-      <div class="info-value">
-        <i class="pi pi-hashtag icon-style"></i>
-        <span class="description-span">INC-2024-001</span>
-      </div>
-    </div>
-
-    <div class="detail-row">
-      <h4 class="page-subtitle">Fecha y Hora</h4>
-      <div class="info-value">
-        <i class="pi pi-calendar icon-style"></i>
-        <span class="description-span">20/11/2024 14:30</span>
-      </div>
-    </div>
-
-    <div class="detail-row">
-      <h4 class="page-subtitle">Estado</h4>
-      <p-tag value="Aprobada" severity="warn"></p-tag>
-    </div>
-  </div>
-
     <div class="element-container">
-    <div class="detail-row">
-      <h4 class="page-subtitle">Descripción del Incidente</h4>
-      <div class="info-value">
-        <i class="pi pi-info-circle icon-style"></i>
-        <span class="description-span">Temperatura del motor superó los 85°C durante operación normal</span>
+      <div class="detail-row">
+        <h4 class="page-subtitle">Id Incidente</h4>
+        <div class="info-value">
+          <i class="pi pi-hashtag icon-style"></i>
+          <span class="description-span">INC-2024-001</span>
+        </div>
       </div>
-    </div>
 
-    <div class="detail-row">
-      <h4 class="page-subtitle">Observaciones</h4>
-      <div class="info-value">
-        <i class="pi pi-file-edit icon-style"></i>
-        <span class="description-span">Sistema de enfriamiento requiere revisión inmediata</span>
+      <div class="detail-row">
+        <h4 class="page-subtitle">Fecha y Hora</h4>
+        <div class="info-value">
+          <i class="pi pi-calendar icon-style"></i>
+          <span class="description-span">20/11/2024 14:30</span>
+        </div>
       </div>
-    </div>
 
-    <div class="detail-row">
-      <h4 class="page-subtitle">Usuario Reportante</h4>
-      <div class="info-value">
-        <i class="pi pi-user icon-style"></i>
-        <span class="description-span">Juan Carlos Mendoza</span>
+      <div class="detail-row">
+        <h4 class="page-subtitle">Estado</h4>
+        <div class="cards-grid">
+          <p-tag value="Aprobada" severity="warn"></p-tag>
+          <p-dropdown
+            [options]="estadosOperacionales"
+            formControlName="estadoOperacional"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Seleccionar estado"
+          >
+          </p-dropdown>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="element-container">
+      <div class="detail-row">
+        <h4 class="page-subtitle">Descripción del Incidente</h4>
+        <div class="info-value">
+          <i class="pi pi-info-circle icon-style"></i>
+          <span class="description-span"
+            >Temperatura del motor superó los 85°C durante operación
+            normal</span
+          >
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <h4 class="page-subtitle">Observaciones</h4>
+        <div class="info-value">
+          <i class="pi pi-file-edit icon-style"></i>
+          <span class="description-span"
+            >Sistema de enfriamiento requiere revisión inmediata</span
+          >
+        <textarea styleClass="p-inputtextarea" rows="5" cols="30" pTextarea   placeholder="Agregar Observaciones"></textarea>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <h4 class="page-subtitle">Usuario Reportante</h4>
+        <div class="info-value">
+          <i class="pi pi-user icon-style"></i>
+          <span class="description-span">Juan Carlos Mendoza</span>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </div>
 
@@ -114,31 +139,32 @@
 </p-divider>
 <div class="cards-grid">
   <ng-container>
-  <div class="element-container">
-    <div>
-      <h4 class="page-subtitle">Imagen</h4>
-      <p-image
-        src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
-        alt="Evidencia Incidente"
-        width="250"
-        [preview]="true"
-        styleClass="image-formate">
-      </p-image>
+    <div class="element-container">
+      <div>
+        <h4 class="page-subtitle">Imagen</h4>
+        <p-image
+          src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+          alt="Evidencia Incidente"
+          width="250"
+          [preview]="true"
+          styleClass="image-formate"
+        >
+        </p-image>
+      </div>
     </div>
-  </div>
-  <div class="element-container">
-    <div>
-      <h4 class="page-subtitle">Nombre Archivo</h4>
-      <i class="pi pi-file icon-style"></i>
-      <span class="description-span">evidencia_motor_PE001.jpg</span>
+    <div class="element-container">
+      <div>
+        <h4 class="page-subtitle">Nombre Archivo</h4>
+        <i class="pi pi-file icon-style"></i>
+        <span class="description-span">evidencia_motor_PE001.jpg</span>
+      </div>
+      <div>
+        <h4 class="page-subtitle">Fecha Captura</h4>
+        <i class="pi pi-calendar icon-style"></i>
+        <span class="description-span">20/11/2024 14:45</span>
+      </div>
     </div>
-    <div>
-      <h4 class="page-subtitle">Fecha Captura</h4>
-      <i class="pi pi-calendar icon-style"></i>
-      <span class="description-span">20/11/2024 14:45</span>
-    </div>
-  </div>
-</ng-container>
+  </ng-container>
 </div>
 
 <p-divider></p-divider>
@@ -146,10 +172,10 @@
 <!-- Botón de guardar-->
 <div class="footer-actions">
   <p-button
-  label="Guardar Incidente"
-  icon="pi pi-save"
-  severity="success"
-  [style]="{'width': '200px'}">
-</p-button>
+    label="Guardar Incidente"
+    icon="pi pi-save"
+    severity="success"
+    [style]="{ width: '200px' }"
+  >
+  </p-button>
 </div>
-
