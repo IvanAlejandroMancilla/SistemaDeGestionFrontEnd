@@ -17,6 +17,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { apiDashboardDashboardGet } from '../../api/functions';
 import { ResumenIncident } from './model/ResumenIncident'
 import { ProgressSpinnerModule, ProgressSpinner } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
 
 
 @Component({
@@ -35,13 +36,18 @@ import { ProgressSpinnerModule, ProgressSpinner } from 'primeng/progressspinner'
     SelectModule,
     FormsModule,
     PaginatorModule,
-    ProgressSpinner
+    ProgressSpinner,
+    DialogModule
 ],
   templateUrl: './incidents.component.html',
   styleUrl: './incidents.component.css',
 })
 
 export class IncidentsComponent implements OnInit {
+
+  visible: boolean = false;
+
+
   //API resumen Incidentes
 
   resumenIncident!: ResumenIncident; // El ! indica que se inicializará después
@@ -53,9 +59,7 @@ export class IncidentsComponent implements OnInit {
       const body = typeof response.body === 'string'
         ? JSON.parse(response.body)
         : response.body;
-
       const statusCounts = body?.JsonResponse?.[0]?.incidents_status_counts;
-
       if (statusCounts) {
         // Parseo directo del response al objeto
         this.resumenIncident = {
@@ -176,9 +180,9 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-    viewIncident(incident: any) {
-    // Lógica para ver el incidente (ej: abrir un modal o navegar a detalle)
-    console.log('Ver incidente:', incident);
+  viewIncident(item: any): void {
+    console.log('Ver incidente:', item);
+    this.visible = true;
   }
 
   editIncident(incident: any) {

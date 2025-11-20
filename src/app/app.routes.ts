@@ -26,6 +26,10 @@ export const routes: Routes = [
     path: 'administrador',
     component: ConfigurationComponent
   },
+    {
+    path: 'detalle',
+    component: ConfigurationComponent
+  }
   // {
   //   path: 'usuarios',
   //   component: UsuariosComponent
