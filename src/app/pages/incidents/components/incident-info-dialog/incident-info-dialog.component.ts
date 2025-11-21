@@ -30,57 +30,61 @@ export class IncidentInfoDialogComponent implements OnInit {
   loading: boolean = true;
   error: boolean = false;
 
+  @Input() incidentId?: number;
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient
   ) { }
-  ngOnInit(): void {
 
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('ID recibido desde URL:', id);
+   ngOnInit(): void {
+    const idFromRoute = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (!id) {
-      this.error = true;
-      this.loading = false;
-      return;
+    if (idFromRoute) {
+      this.incidentId = idFromRoute;
+      this.loadIncident(idFromRoute);
     }
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['incidentId'] && this.incidentId) {
+      this.loadIncident(this.incidentId);
+    }
+  }
+
+  loadIncident(id: number) {
+    this.loading = true;
+    this.error = false;
+    this.incident = null;
 
     apiIncidentsIncidentByIdIdIncidntGet(
       this.http,
       environment.urlBack,
       { idINCIDNT: id }
     ).subscribe({
-
       next: (resp: any) => {
-        console.log('Respuesta cruda del backend:', resp);
-
         try {
           const parsed = JSON.parse(resp.body);
-          console.log('JSON parseado:', parsed);
 
-          if (Array.isArray(parsed.data) && parsed.data.length > 0) {
-            this.incident = parsed.data[0] as IncidentDetail;
+          if (parsed?.data?.length > 0) {
+            this.incident = parsed.data[0];
           } else {
-            console.error('La estructura no contiene data[0]');
             this.error = true;
           }
-
         } catch (e) {
-          console.error('Error parseando JSON:', e);
           this.error = true;
         }
 
         this.loading = false;
       },
 
-      error: err => {
-        console.error('Error en la petición:', err);
+      error: () => {
         this.error = true;
         this.loading = false;
       }
-
     });
   }
+
 
 getSeverity(status?: string):
   'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {

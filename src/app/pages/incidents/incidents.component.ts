@@ -187,15 +187,13 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-viewIncident(item: any): void {
-  console.log('Ver incidente:', item);
-  this.selectedIncidentId = item.idINCIDNT;
-  this.visibleView = true;
-}
+  viewIncident(item: any) {
+    this.selectedIncidentId = item.idINCIDNT;
+    this.visibleView = true;
+  }
 
 
-  editIncient(item: any) {
-    console.log('Editar incidente:', item);
+  editIncident(item: any) {
     this.selectedIncidentId = item.idINCIDNT;
     this.visibleEdit = true;
   }

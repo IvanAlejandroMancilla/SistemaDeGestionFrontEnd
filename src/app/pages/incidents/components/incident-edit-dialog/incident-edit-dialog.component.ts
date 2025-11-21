@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -50,9 +50,11 @@ export class IncidentEditDialogComponent implements OnInit {
   observation: string = '';
   incident: IncidentDetail | null = null;
   incidentForm!: FormGroup;
-  incidentId!: number;
+  @Input() incidentId?: number;
   maxWords = 250;
   helperValue = 'Sin Datos';
+  loading = true;
+  error = false;
 
   estadosIncidente = [
     { label: 'Abierto', value: 1 },
@@ -70,57 +72,81 @@ export class IncidentEditDialogComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private http: HttpClient
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
+  createForm() {
     this.incidentForm = this.fb.group({
       estadoIncidente: [null, Validators.required],
       estadoOperacional: [null, Validators.required],
       observaciones: [
         '',
-        [Validators.required, this.maxWordsValidator(this.maxWords)],
-      ],
+        [Validators.required, this.maxWordsValidator(this.maxWords)]
+      ]
     });
+  }
+  ngOnChanges(): void {
+  if (this.incidentId) {
+    this.loadIncident(this.incidentId);
+  }
+}
+
+  ngOnInit(): void {
+    //inciciando el formulario
+    this.createForm();
 
     //Leer id desde la ruta
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.incidentId = id;
+    const idFromRoute = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (!id) {
-      console.warn('No se recibió id en la ruta para editar');
-      return;
+    if (idFromRoute) {
+      this.incidentId = idFromRoute;
+      this.loadIncident(idFromRoute);
     }
+  }
 
-    // Llamar al backend para obtener el incidente
-    apiIncidentsIncidentByIdIdIncidntGet(this.http, environment.urlBack, {
-      idINCIDNT: id,
-    }).subscribe({
+  loadIncident(id: number) {
+    this.loading = true;
+    this.error = false;
+
+    apiIncidentsIncidentByIdIdIncidntGet(
+      this.http,
+      environment.urlBack,
+      { idINCIDNT: id }
+    ).subscribe({
       next: (resp: any) => {
         try {
           const parsed = JSON.parse(resp.body);
-          console.log('Detalle incidente (edit):', parsed);
 
           if (Array.isArray(parsed.data) && parsed.data.length > 0) {
-            this.incident = parsed.data[0] as IncidentDetail;
+            this.incident = parsed.data[0];
 
-            // Rellenado del formulario con los valores actuales
+            // Cargar datos en el formulario
             this.incidentForm.patchValue({
-              estadoIncidente: this.incident.statusIncident?.idStatus ?? null,
-              estadoOperacional: this.incident.shovel?.status?.idStatus ?? null,
-              observaciones: this.incident.observation ?? '',
+              estadoIncidente: this.incident?.statusIncident?.idStatus ?? null,
+              estadoOperacional: this.incident?.shovel?.status?.idStatus ?? null,
+              observaciones: this.incident?.observation ?? ''
             });
+
           } else {
-            console.warn('No se encontró data[0] para este incidente');
+            this.error = true;
           }
+
         } catch (e) {
-          console.error('Error parseando JSON de incidente:', e);
+          console.error('Error parseando JSON:', e);
+          this.error = true;
         }
+
+        this.loading = false;
       },
-      error: (err) => {
-        console.error('Error al obtener incidente por id:', err);
-      },
+
+      error: err => {
+        console.error('Error en la solicitud:', err);
+        this.error = true;
+        this.loading = false;
+      }
     });
   }
+
+  /* Validadores y Decoradores*/
 
   maxWordsValidator(max: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -163,35 +189,34 @@ export class IncidentEditDialogComponent implements OnInit {
     }
   }
   getIcon(status?: string): string {
-  if (!status) return 'pi pi-question-circle';
+    if (!status) return 'pi pi-question-circle';
 
-  const s = status.toLowerCase();
+    const s = status.toLowerCase();
 
-  switch (s) {
-    case 'abierto':
-      return 'pi pi-exclamation-circle';
+    switch (s) {
+      case 'abierto':
+        return 'pi pi-exclamation-circle';
 
-    case 'aprobado':
-      return 'pi pi-check-circle';
+      case 'aprobado':
+        return 'pi pi-check-circle';
 
-    case 'en espera':
-      return 'pi pi-clock';
+      case 'en espera':
+        return 'pi pi-clock';
 
-    case 'mantenimiento':
-      return 'pi pi-wrench';
+      case 'mantenimiento':
+        return 'pi pi-wrench';
 
-    case 'finalizado':
-      return 'pi pi-flag';
+      case 'finalizado':
+        return 'pi pi-flag';
 
-    case 'online':
-      return 'pi pi-check';
+      case 'online':
+        return 'pi pi-check';
 
-    case 'offline':
-      return 'pi pi-times-circle';
+      case 'offline':
+        return 'pi pi-times-circle';
 
-    default:
-      return 'pi pi-info-circle';
+      default:
+        return 'pi pi-info-circle';
+    }
   }
-}
-
 }
