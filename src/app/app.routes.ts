@@ -32,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'editar',
         component: IncidentEditDialogComponent
+      },
+      {
+        path: 'editar/:id',
+        component: IncidentEditDialogComponent
       }
     ]
   },
