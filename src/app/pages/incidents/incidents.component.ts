@@ -20,6 +20,7 @@ import { ProgressSpinnerModule, ProgressSpinner } from 'primeng/progressspinner'
 import { DialogModule } from 'primeng/dialog';
 import { IncidentEditDialogComponent } from './components/incident-edit-dialog/incident-edit-dialog.component';
 import { IncidentInfoDialogComponent } from './components/incident-info-dialog/incident-info-dialog.component';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class IncidentsComponent implements OnInit {
 
   visibleEdit: boolean = false;
   visibleView: boolean = false;
+  selectedIncidentId?: number;
 
 
   //API resumen Incidentes
@@ -185,13 +187,16 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-  viewIncident(item: any): void {
-    console.log('Ver incidente:', item);
-    this.visibleView = true;
-  }
+viewIncident(item: any): void {
+  console.log('Ver incidente:', item);
+  this.selectedIncidentId = item.idINCIDNT;
+  this.visibleView = true;
+}
+
 
   editIncient(item: any) {
-    console.log('Ver incidente:', item);
+    console.log('Editar incidente:', item);
+    this.selectedIncidentId = item.idINCIDNT;
     this.visibleEdit = true;
   }
 

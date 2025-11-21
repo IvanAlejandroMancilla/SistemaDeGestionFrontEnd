@@ -181,20 +181,23 @@
   header="Detalle de Incidente"
   [modal]="true"
   [draggable]="false"
+  [maximizable]="true"
   [resizable]="true"
   [(visible)]="visibleView"
   [style]="{ width: '50rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
   [appendTo]="'body'"
 >
-
-<app-incident-info-dialog></app-incident-info-dialog>
+  <app-incident-info-dialog>
+  </app-incident-info-dialog>
 </p-dialog>
+<!-- [incidentId]="selectedIncidentId" -->
 
 
 <p-dialog
   header="Aprobar Incidente"
   [modal]="true"
+  [maximizable]="true"
   [draggable]="false"
   [resizable]="true"
   [(visible)]="visibleEdit"
@@ -202,7 +205,6 @@
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
   [appendTo]="'body'"
 >
-
-<app-incident-edit-dialog></app-incident-edit-dialog>
+<app-incident-edit-dialog ></app-incident-edit-dialog>
 </p-dialog>
 </div>
