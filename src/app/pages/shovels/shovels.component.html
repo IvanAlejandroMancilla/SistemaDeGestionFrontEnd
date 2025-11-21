@@ -1,7 +1,91 @@
 <div class="page-container">
-  <h2 class="page-title">Palas Eléctricas</h2>
+  <h2 class="page-title">Gestión de Palas Eléctricas</h2>
+  <h3 class="page-subtitle">
+    Control y seguimiento de Palas Eléctricas en operación dentro de la flota.
+  </h3>
 
-  <div class="content">
-    <!-- Contenido de palas eléctricas -->
+  <div class="cards-grid">
+    <ng-container *ngIf="resumenShovels; else loading">
+      <!-- Total de Equipos -->
+      <div class="element-container">
+        <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Total de Equipos</h4>
+
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.total }}
+        </span>
+
+        <span class="textspan">Equipos registrados</span>
+      </div>
+
+      <!-- Equipos Online -->
+      <div class="element-container">
+        <i
+          class="pi pi-check-circle"
+          style="font-size: 2rem; color: #22c55e"
+        ></i>
+        <h4 class="page-subtitle">Equipos Online</h4>
+
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.online }}
+        </span>
+
+        <span class="textspan">Operativos</span>
+      </div>
+
+      <!-- Equipos en Mantenimiento -->
+      <div class="element-container">
+        <i class="pi pi-wrench" style="font-size: 2rem; color: #eab308"></i>
+        <h4 class="page-subtitle">Equipos en Mantenimiento</h4>
+
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.mantenimiento }}
+        </span>
+
+        <span class="textspan">Revisión en curso</span>
+      </div>
+
+      <!-- Equipos Offline -->
+      <div class="element-container">
+        <i class="pi pi-ban" style="font-size: 2rem; color: #ef4444"></i>
+        <h4 class="page-subtitle">Equipos Offline</h4>
+
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.offline }}
+        </span>
+
+        <span class="textspan">Fuera de servicio</span>
+      </div>
+    </ng-container>
+
+    <!-- Estado cargando -->
+    <ng-template #loading>
+      <p-progress-spinner ariaLabel="loading" />
+    </ng-template>
+  </div>
+  <div class="progress-bar">
+    <div class="felx-progrssbar">
+      <h2 class="page-title">Estado General del Sistema</h2>
+          <ng-container *ngIf="porcentaje >= 70">
+      <p-tag
+        severity="success"
+        value="ACEPTABLE"
+        styleClass="status-tag"
+      ></p-tag>
+      </ng-container>
+
+     <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
+      <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
+      </ng-container>
+
+      <ng-container *ngIf="porcentaje < 40">
+      <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
+      </ng-container>
+    </div>
+
+
+
+     <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
+    <p-progressbar [value]="porcentaje" />
   </div>
 </div>
