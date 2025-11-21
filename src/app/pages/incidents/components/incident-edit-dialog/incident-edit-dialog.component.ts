@@ -24,6 +24,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { BaseIcon } from 'primeng/icons/baseicon';
 import { CommonModule, NgIf } from '@angular/common';
+import { SelectModule } from 'primeng/select';
+
 
 @Component({
   selector: 'app-incident-edit-dialog',
@@ -42,6 +44,7 @@ import { CommonModule, NgIf } from '@angular/common';
     DropdownModule,
     TextareaModule,
     CommonModule,
+    SelectModule
   ],
   templateUrl: './incident-edit-dialog.component.html',
   styleUrl: './incident-edit-dialog.component.css',
@@ -55,6 +58,10 @@ export class IncidentEditDialogComponent implements OnInit {
   helperValue = 'Sin Datos';
   loading = true;
   error = false;
+  estadoIncidenteActualizado = false;
+  estadoOperacionalActualizado = false;
+  estadoOperacionalInvalido= false;
+
 
   estadosIncidente = [
     { label: 'Abierto', value: 1 },
@@ -64,8 +71,8 @@ export class IncidentEditDialogComponent implements OnInit {
   ];
   estadosOperacionales = [
     { label: 'Online', value: 1 },
-    { label: 'Offline', value: 2 },
-    { label: 'Mantenimiento', value: 3 },
+    { label: 'Mantenimiento', value: 2 },
+    { label: 'Offline', value: 3},
   ];
 
   constructor(
@@ -146,7 +153,88 @@ export class IncidentEditDialogComponent implements OnInit {
     });
   }
 
+  /* Metodo patch */
+
+  actualizarIncidente() {
+  if (!this.incident || !this.incidentId) {
+    console.error('No hay incidente cargado para actualizar.');
+    return;
+  }
+
+  if (this.incidentForm.invalid) {
+    this.incidentForm.markAllAsTouched();
+    console.warn('Formulario inválido.');
+    return;
+  }
+
+  // Extraer valores del formulario
+  const estadoIncidente = this.incidentForm.get('estadoIncidente')?.value;
+  const estadoOperacional = this.incidentForm.get('estadoOperacional')?.value;
+  const observaciones = this.incidentForm.get('observaciones')?.value;
+
+  // Regla especial:
+  // Si incidente se APRUEBA → la pala DEBE quedar EN MANTENIMIENTO (3)
+if (estadoIncidente === 2 && estadoOperacional !== 2) {
+  alert('Para aprobar un incidente, la pala debe pasar a Mantenimiento.');
+  return;
+}
+
+  // Construir DTO EXACTO
+  const dto = {
+    idINCIDNT: this.incidentId,
+    idStatusIncident: estadoIncidente,
+    idshovel: this.incident.shovel?.idShovel ?? null,
+    idstatusshovel: estadoOperacional,
+    observation: observaciones
+  };
+
+
+
+  console.log('Enviando DTO →', dto);
+
+  // Llamar a la API
+  apiIncidentsUpdateObservationPatch(this.http, environment.urlBack, {
+    body: dto
+  }).subscribe({
+    next: () => {
+      alert('Incidente actualizado correctamente.');
+    },
+    error: (err) => {
+      console.error('Error al actualizar incidente:', err);
+      alert('Error al actualizar el incidente.');
+    }
+  });
+}
+
+
+
   /* Validadores y Decoradores*/
+
+
+onEstadoIncidenteChanged() {
+  this.estadoIncidenteActualizado = true;
+  this.validarReglasDeEstado();
+}
+
+onEstadoOperacionalChanged() {
+  this.estadoOperacionalActualizado = true;
+  this.validarReglasDeEstado();
+}
+
+validarReglasDeEstado() {
+  const estadoIncidente = this.incidentForm.get('estadoIncidente')?.value;
+  const estadoOperacional = this.incidentForm.get('estadoOperacional')?.value;
+
+  const incidenteRestringido =
+    estadoIncidente === 2 || estadoIncidente === 3;
+
+  // Estado "Online" ahora es value = 1
+  if (incidenteRestringido && estadoOperacional === 1) {
+    this.estadoOperacionalInvalido = true;
+  } else {
+    this.estadoOperacionalInvalido = false;
+  }
+}
 
   maxWordsValidator(max: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -176,7 +264,7 @@ export class IncidentEditDialogComponent implements OnInit {
       case 'abierto':
         return 'warn';
       case 'aprobado':
-      case 'En espera':
+      case 'En Espera':
       case 'mantenimiento':
         return 'info';
       case 'finalizado':
@@ -219,4 +307,6 @@ export class IncidentEditDialogComponent implements OnInit {
         return 'pi pi-info-circle';
     }
   }
+apiIncidentsUpdateObservationPatch: any
+
 }

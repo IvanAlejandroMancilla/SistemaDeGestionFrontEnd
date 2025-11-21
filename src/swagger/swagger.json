@@ -303,6 +303,16 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          },
+          "idshovel": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idstatusshovel": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -328,13 +338,15 @@
       "ShovelUpdateDto": {
         "type": "object",
         "properties": {
-          "serialNumber": {
-            "type": "string",
+          "idshovel": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
-          "status": {
+          "idstatusshovel": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false

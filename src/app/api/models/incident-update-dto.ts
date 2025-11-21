@@ -4,5 +4,7 @@
 export interface IncidentUpdateDto {
   idINCIDNT?: number | null;
   idStatusIncident?: number | null;
+  idshovel?: number | null;
+  idstatusshovel?: number | null;
   observation?: string | null;
 }

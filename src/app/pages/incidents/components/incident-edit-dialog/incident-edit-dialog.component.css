@@ -90,8 +90,40 @@
 }
 
 
+/*de formulario*/
+.word-counter {
+  font-size: 0.8rem;
+  color: #6b7280;
+  display: block;
+  margin-top: 4px;
+}
 
+.error-text {
+  color: #dc2626;
+  font-size: 0.8rem;
 
+  display: block;
+  margin-top: 4px;
+}
+
+.obs-textarea {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  display: block;
+}
+
+.info-text {
+  color: #2563eb; /* azul elegante */
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
 
 
 
