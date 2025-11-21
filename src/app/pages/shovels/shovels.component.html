@@ -66,26 +66,39 @@
   <div class="progress-bar">
     <div class="felx-progrssbar">
       <h2 class="page-title">Estado General del Sistema</h2>
-          <ng-container *ngIf="porcentaje >= 70">
-      <p-tag
-        severity="success"
-        value="ACEPTABLE"
-        styleClass="status-tag"
-      ></p-tag>
+      <ng-container *ngIf="porcentaje >= 70">
+        <p-tag
+          severity="success"
+          value="ACEPTABLE"
+          styleClass="status-tag"
+        ></p-tag>
       </ng-container>
 
-     <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
-      <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
+      <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
+        <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
       </ng-container>
 
       <ng-container *ngIf="porcentaje < 40">
-      <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
+        <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
       </ng-container>
     </div>
 
+    <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
 
+<ng-container *ngIf="porcentaje < 25">
+  <p-progressbar [value]="porcentaje" styleClass="progress-red"></p-progressbar>
+</ng-container>
 
-     <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
-    <p-progressbar [value]="porcentaje" />
+<ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
+  <p-progressbar [value]="porcentaje" styleClass="progress-orange"></p-progressbar>
+</ng-container>
+
+<ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
+  <p-progressbar [value]="porcentaje" styleClass="progress-green"></p-progressbar>
+</ng-container>
+
+<ng-container *ngIf="porcentaje >= 75">
+  <p-progressbar [value]="porcentaje" styleClass="progress-blue"></p-progressbar>
+</ng-container>
   </div>
 </div>

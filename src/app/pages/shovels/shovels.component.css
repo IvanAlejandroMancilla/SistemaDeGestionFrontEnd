@@ -24,31 +24,21 @@
   margin: 0 0 0.5rem 0;
 }
 
-/* .element-container {
-  background-color: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-height: 400px;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-} */
 .element-container {
   background-color: #f8f9fa;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-height: auto; /* Cambiado de 400px a auto */
+  min-height: auto;
+  /* Cambiado de 400px a auto */
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .element-container:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -60,13 +50,13 @@
   background-color: #f8f9fa;
   border-radius: 12px;
   padding: 1.5rem;
-  margin-top:2rem ;
+  margin-top: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-height: auto;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.textspan{
+.textspan {
   margin-left: 0.5rem;
 }
 
@@ -77,8 +67,24 @@
   align-items: rigth;
 }
 
-.felx-progrssbar{
-display: flex;
-justify-content: space-between;
-align-items: center;
+.felx-progrssbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+::ng-deep .progress-red .p-progressbar-value {
+  background-color: #f44336 !important;
+}
+
+::ng-deep .progress-orange .p-progressbar-value {
+  background-color: #ff9800 !important;
+}
+
+::ng-deep .progress-green .p-progressbar-value {
+  background-color: #4caf50 !important;
+}
+
+::ng-deep .progress-blue .p-progressbar-value {
+  background-color: #2196f3 !important;
 }
