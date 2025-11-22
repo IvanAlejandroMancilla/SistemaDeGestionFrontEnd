@@ -8,10 +8,10 @@
     <ng-container *ngIf="resumenShovels; else loading">
       <!-- Total de Equipos -->
       <div class="element-container">
-        <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
+        <i class="pi pi-chart-line icon-kpi-total"></i>
         <h4 class="page-subtitle">Total de Equipos</h4>
 
-        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+        <span class="kpi-number">
           {{ resumenShovels.total }}
         </span>
 
@@ -20,13 +20,10 @@
 
       <!-- Equipos Online -->
       <div class="element-container">
-        <i
-          class="pi pi-check-circle"
-          style="font-size: 2rem; color: #22c55e"
-        ></i>
+        <i class="pi pi-check-circle icon-kpi-online"></i>
         <h4 class="page-subtitle">Equipos Online</h4>
 
-        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+        <span class="kpi-number">
           {{ resumenShovels.online }}
         </span>
 
@@ -35,10 +32,10 @@
 
       <!-- Equipos en Mantenimiento -->
       <div class="element-container">
-        <i class="pi pi-wrench" style="font-size: 2rem; color: #eab308"></i>
+        <i class="pi pi-wrench icon-kpi-mant"></i>
         <h4 class="page-subtitle">Equipos en Mantenimiento</h4>
 
-        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+        <span class="kpi-number">
           {{ resumenShovels.mantenimiento }}
         </span>
 
@@ -47,10 +44,10 @@
 
       <!-- Equipos Offline -->
       <div class="element-container">
-        <i class="pi pi-ban" style="font-size: 2rem; color: #ef4444"></i>
+        <i class="pi pi-ban icon-kpi-offline"></i>
         <h4 class="page-subtitle">Equipos Offline</h4>
 
-        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+        <span class="kpi-number">
           {{ resumenShovels.offline }}
         </span>
 
@@ -58,13 +55,13 @@
       </div>
     </ng-container>
 
-    <!-- Estado cargando -->
     <ng-template #loading>
-      <p-progress-spinner ariaLabel="loading" />
+      <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
     </ng-template>
   </div>
+
   <div class="progress-bar">
-    <div class="felx-progrssbar">
+    <div class="flex-progress-bar">
       <h2 class="page-title">Estado General del Sistema</h2>
       <ng-container *ngIf="porcentaje >= 70">
         <p-tag
@@ -85,20 +82,107 @@
 
     <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
 
-<ng-container *ngIf="porcentaje < 25">
-  <p-progressbar [value]="porcentaje" styleClass="progress-red"></p-progressbar>
-</ng-container>
+    <ng-container *ngIf="porcentaje < 25">
+      <p-progressbar
+        [value]="porcentaje"
+        styleClass="progress-red"
+      ></p-progressbar>
+    </ng-container>
 
-<ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
-  <p-progressbar [value]="porcentaje" styleClass="progress-orange"></p-progressbar>
-</ng-container>
+    <ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
+      <p-progressbar
+        [value]="porcentaje"
+        styleClass="progress-orange"
+      ></p-progressbar>
+    </ng-container>
 
-<ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
-  <p-progressbar [value]="porcentaje" styleClass="progress-green"></p-progressbar>
-</ng-container>
+    <ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
+      <p-progressbar
+        [value]="porcentaje"
+        styleClass="progress-green"
+      ></p-progressbar>
+    </ng-container>
 
-<ng-container *ngIf="porcentaje >= 75">
-  <p-progressbar [value]="porcentaje" styleClass="progress-blue"></p-progressbar>
-</ng-container>
+    <ng-container *ngIf="porcentaje >= 75">
+      <p-progressbar
+        [value]="porcentaje"
+        styleClass="progress-blue"
+      ></p-progressbar>
+    </ng-container>
+  </div>
+
+  <div class="table-container">
+    <div class="table-header-flex">
+      <div>
+        <h2 class="page-title">Lista de Activos: Palas Eléctricas</h2>
+        <h3 class="page-subtitle">
+          Control y seguimiento de Palas Eléctricas en operación dentro de la flota.
+        </h3>
+      </div>
+      <div class="table-header-buttons">
+        <p-button label="Exportar" icon="pi pi-download" severity="secondary" size="small"></p-button>
+        <p-button label="Filtros" icon="pi pi-filter" severity="secondary" size="small"></p-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-outer">
+    <p-panel [toggleable]="true" [collapsed]="false" styleClass="panel-style">
+
+      <!-- Header personalizado -->
+      <ng-template pTemplate="header">
+        <div class="panel-header-flex">
+          <img
+            src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+            class="panel-img"
+          />
+          <div class="flex-progress-bar">
+            <h3 class="panel-title">Pala Eléctrica PE-001</h3>
+
+            <div>
+              <ng-container *ngIf="estado === 'operativa'">
+                <p-tag
+                  severity="success"
+                  value="OPERATIVA"
+                  styleClass="status-tag"
+                ></p-tag>
+              </ng-container>
+
+              <ng-container *ngIf="estado === 'offline'">
+                <p-tag
+                  severity="danger"
+                  value="OFFLINE"
+                  styleClass="status-tag"
+                ></p-tag>
+              </ng-container>
+
+              <ng-container *ngIf="estado === 'mantenimiento'">
+                <p-tag
+                  severity="warn"
+                  value="MANTENIMIENTO"
+                  styleClass="status-tag"
+                ></p-tag>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- Contenido siempre visible -->
+      <div class="panel-maininfo">
+        <p>📍 Tajo Norte - Banco 12</p>
+        <p>👤 Juan Carlos Mendoza</p>
+        <p>⏰ 18,245 horas</p>
+      </div>
+
+      <!-- Contenido expandible -->
+      <div class="panel-details">
+        <h4>Detalles completos</h4>
+        <p>Modelo: Komatsu PC8000-6</p>
+        <p>Serie: KOM601-2024</p>
+        <p>Aquí van las métricas y más información...</p>
+      </div>
+
+    </p-panel>
   </div>
 </div>

@@ -7,16 +7,20 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+
 
 @Component({
   selector: 'app-shovels',
   standalone: true,
   imports: [
+    ButtonModule,
     NgIf,
     ProgressSpinnerModule,
     ProgressBarModule,
     ToastModule,
-    TagModule,
+    TagModule,PanelModule
   ],
   templateUrl: './shovels.component.html',
   styleUrl: './shovels.component.css',
@@ -74,4 +78,19 @@ export class ShovelsComponent {
     if (this.porcentaje >= 40) return 'RIESGO';
     return 'GRAVE';
   }
+
+  estado: string = 'operativa'; // 'operativa', 'offline', 'mantenimiento'
+
+getEstadoSeverity(estado: string): string {
+  switch(estado) {
+    case 'operativa':
+      return 'success';
+    case 'offline':
+      return 'danger';
+    case 'mantenimiento':
+      return 'warn';
+    default:
+      return 'info';
+  }
+}
 }
