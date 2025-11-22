@@ -10,6 +10,8 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { DataViewModule } from 'primeng/dataview';
+import { DialogModule } from 'primeng/dialog';
+import { ShovelInfoDialogComponent } from './components/shovel-info-dialog/shovel-info-dialog.component';
 
 
 @Component({
@@ -23,14 +25,14 @@ import { DataViewModule } from 'primeng/dataview';
     ToastModule,
     DataViewModule,
     TagModule,
-    PanelModule
+    PanelModule,DialogModule,ShovelInfoDialogComponent
   ],
   templateUrl: './shovels.component.html',
   styleUrl: './shovels.component.css',
 })
 export class ShovelsComponent {
   resumenShovels: any = null;
-
+  showDialog: boolean = false;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {

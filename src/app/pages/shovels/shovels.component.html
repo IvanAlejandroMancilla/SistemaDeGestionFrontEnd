@@ -159,12 +159,12 @@
           > <div id="3">
               <div>
                 <button
-                  class="p-button-sm p-button-text"
-                  pButton
-                  icon="pi pi-eye"
-                  label="Ver"
-                  style="font-size: 0.8rem; padding: 0.4rem 0.8rem"
-                ></button>
+      (click)="showDialog = true"
+      class="p-button-sm p-button-text"
+      pButton
+      icon="pi pi-eye"
+      label="Ver"
+      style="font-size: 0.8rem; padding: 0.4rem 0.8rem"></button>
               </div>
             </div>
         </div>
@@ -239,6 +239,13 @@
     <!---->
   </div>
 </div>
+<p-dialog
+  header="Información"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [style]="{width: '50vw'}"
+  [draggable]="false"
+  [resizable]="false"><app-shovel-info-dialog>s</app-shovel-info-dialog></p-dialog>
 <!--
 https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
 https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
