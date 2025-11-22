@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIf, NgStyle,NgFor, CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
-import { apiDashboardDashboardGet } from '../../api/functions';
+import { apiDashboardDashboardGet, apiShovelsListadepalasGet } from '../../api/functions';
 import { HttpClient } from '@angular/common/http';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -18,7 +18,7 @@ import { ShovelInfoDialogComponent } from './components/shovel-info-dialog/shove
   selector: 'app-shovels',
   standalone: true,
   imports: [
-    ButtonModule,
+    ButtonModule,NgFor,
     NgIf,CommonModule,
     ProgressSpinnerModule,
     ProgressBarModule,
@@ -31,14 +31,96 @@ import { ShovelInfoDialogComponent } from './components/shovel-info-dialog/shove
   styleUrl: './shovels.component.css',
 })
 export class ShovelsComponent {
+
+  /* resumen */
   resumenShovels: any = null;
+  porcentaje: number = 90;
+
+  /* lista palas*/
   showDialog: boolean = false;
+  shovelsList: any[] = [];
+  loading: boolean = false;
+
+
+estadosOperacionales = [
+  { label: 'Online', value: 1 },
+  { label: 'Mantenimiento', value: 2 },
+  { label: 'Offline', value: 3 }
+];
+
+private getStatusName(value: number): string {
+  const estado = this.estadosOperacionales.find(e => e.value === value);
+  return estado ? estado.label : 'Desconocido';
+}
+
+private fetchShovels() {
+  return apiShovelsListadepalasGet(this.http, environment.urlBack);
+}
+private parseResponse(resp: any) {
+  return JSON.parse(resp.body);
+}
+private mapShovels(data: any[]) {
+  const result = data.map(item => ({
+    idShovel: item.idShovel,
+    serialNumber: item.serialNumber,
+    model: item.model,
+    brand: item.brand,
+    dateTime: item.dateTime,
+    status: {
+      id: item.status,
+      name: this.getStatusName(item.status)
+    }
+  }));
+
+  console.log('Shovels formateadas:', result);
+
+  return result;
+}
+
+getSeverity(status: string) {
+  switch (status.toLowerCase()) {
+    case 'abierto': return 'warn';
+    case 'aprobado': return 'info';
+    case 'en espera': return 'secondary';
+    case 'finalizado': return 'success';
+
+    case 'online': return 'success';
+    case 'offline': return 'danger';
+    case 'mantenimiento': return 'warn';
+
+    default: return 'contrast';
+  }
+}
+
+loadShovels() {
+  this.loading = true;
+
+  this.fetchShovels().subscribe({
+    next: (resp) => {
+      const json = this.parseResponse(resp);
+      this.shovelsList = this.mapShovels(json.data || []);
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error(err);
+      this.loading = false;
+    }
+  });
+}
+
+
+
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.loadDashboardSummary();
+     this.loadShovels();
   }
 
+
+
+/* Sumary status */
   loadDashboardSummary() {
     const rootUrl = environment.urlBack;
 
@@ -70,13 +152,8 @@ export class ShovelsComponent {
     });
   }
 
-  porcentaje: number = 90;
 
-  getSeverity(): 'success' | 'warn' | 'danger' {
-    if (this.porcentaje >= 70) return 'success';
-    if (this.porcentaje >= 40) return 'warn';
-    return 'danger';
-  }
+
 
   getStatusText(): string {
     if (this.porcentaje >= 70) return 'ACEPTABLE';
