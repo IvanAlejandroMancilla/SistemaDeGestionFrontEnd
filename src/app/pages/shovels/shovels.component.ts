@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIf, NgStyle } from '@angular/common';
+import { NgIf, NgStyle,NgFor, CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { apiDashboardDashboardGet } from '../../api/functions';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
+import { DataViewModule } from 'primeng/dataview';
 
 
 @Component({
@@ -16,11 +17,13 @@ import { PanelModule } from 'primeng/panel';
   standalone: true,
   imports: [
     ButtonModule,
-    NgIf,
+    NgIf,CommonModule,
     ProgressSpinnerModule,
     ProgressBarModule,
     ToastModule,
-    TagModule,PanelModule
+    DataViewModule,
+    TagModule,
+    PanelModule
   ],
   templateUrl: './shovels.component.html',
   styleUrl: './shovels.component.css',
