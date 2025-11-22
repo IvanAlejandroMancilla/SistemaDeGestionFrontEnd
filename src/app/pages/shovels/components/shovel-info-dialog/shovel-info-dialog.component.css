@@ -1,0 +1,81 @@
+ :host {
+  display: block;
+}
+
+/* ESTADO DE TARJETAS*/
+.status-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+/* estilo de icono*/
+.icon-style{
+ font-size: 1rem;
+ color: #3b82f6;
+ margin-right: 0.5rem;
+}
+
+.page-container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 0.25rem 0;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #2c3e509a;
+  margin: 0 0 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.description-span{
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+
+.element-container {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: auto;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 1.5rem;
+}
+
+.textspan{
+  margin-left: 0.5rem;
+}
+
+.image-formate {
+  width: 110%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+
+
+
+
+

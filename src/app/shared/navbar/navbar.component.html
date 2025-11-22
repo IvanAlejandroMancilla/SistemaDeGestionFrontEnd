@@ -1,0 +1,66 @@
+<div class="navbar-container">
+  <p-toolbar styleClass="custom-toolbar">
+    <ng-template pTemplate="start">
+      <div class="flex align-items-center gap-3">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: max-content auto;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <img src="Logo.png" alt="Logo" class="logo-img" />
+          <h1 class="system-title">Sistema de Gestión</h1>
+        </div>
+        <div class="nav-buttons">
+          @for(item of menuItems; track item.route) {
+          <p-button
+            [label]="item.label"
+            [icon]="item.icon"
+            [text]="true"
+            severity="secondary"
+            (onClick)="navigateTo(item.route)"
+            styleClass="nav-button"
+          >
+          </p-button>
+          }
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="end">
+      <div class="flex align-items-center gap-2">
+        <p-button
+          label="Buscar"
+          icon="pi pi-search"
+          [text]="true"
+          severity="secondary"
+          (onClick)="onSearch()"
+          styleClass="action-button"
+        >
+        </p-button>
+
+        <p-button
+          label="Alertas"
+          icon="pi pi-bell"
+          [text]="true"
+          severity="secondary"
+          (onClick)="onAlerts()"
+          styleClass="action-button"
+        >
+        </p-button>
+
+        <p-button
+          label="Iniciar Sesión"
+          icon="pi pi-user"
+          [text]="true"
+          severity="secondary"
+          (onClick)="onLogin()"
+          styleClass="action-button"
+        >
+        </p-button>
+      </div>
+    </ng-template>
+  </p-toolbar>
+</div>
