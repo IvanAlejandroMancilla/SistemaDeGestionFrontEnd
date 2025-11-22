@@ -40,7 +40,6 @@ export class ShovelsComponent {
   resumenShovels: any = null;
   porcentaje: number =10;
 
-  showDialog: boolean = false;
   shovelsList: any[] = [];
   loading: boolean = false;
 
@@ -49,6 +48,12 @@ export class ShovelsComponent {
     { label: 'Mantenimiento', value: 2 },
     { label: 'Offline', value: 3 }
   ];
+
+
+  /* eLEMNTOS DEL PDIAGLO */
+  showDialog: boolean = false;
+  selectedShovelId?: number;
+
 
   estado: string = 'operativa'; // 'operativa', 'offline', 'mantenimiento'
 
@@ -181,4 +186,11 @@ export class ShovelsComponent {
       default: return 'info';
     }
   }
+
+
+  /* elementos del pDIALOG */
+openShovelDialog(id: number) {
+  this.selectedShovelId = id;
+  this.showDialog = true;
+}
 }

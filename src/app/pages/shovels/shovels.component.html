@@ -203,7 +203,7 @@
       <div id="3">
         <div>
           <button
-            (click)="showDialog = true"
+            (click)="openShovelDialog(shovel.idShovel)"
             class="p-button-sm p-button-text"
             pButton
             icon="pi pi-eye"
@@ -291,8 +291,11 @@
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
-  ><app-shovel-info-dialog>s</app-shovel-info-dialog></p-dialog
 >
+  <app-shovel-info-dialog
+    [shovelId]="selectedShovelId">
+  </app-shovel-info-dialog>
+</p-dialog>
 
 <!--
 https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
