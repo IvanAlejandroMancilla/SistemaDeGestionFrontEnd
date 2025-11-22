@@ -70,7 +70,7 @@
       <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
     </ng-template>
   </div>
-
+<!--
   <div class="progress-bar">
     <div class="flex-progress-bar">
       <h2 class="page-title">Estado General del Sistema</h2>
@@ -79,8 +79,8 @@
           severity="success"
           value="ACEPTABLE"
           styleClass="status-tag"
-        ></p-tag>
-      </ng-container>
+          ></p-tag>
+        </ng-container>
 
       <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
         <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
@@ -95,32 +95,70 @@
 
     <ng-container *ngIf="porcentaje < 25">
       <p-progressbar
-        [value]="porcentaje"
-        styleClass="progress-red"
+      [value]="porcentaje"
+      styleClass="progress-red"
       ></p-progressbar>
     </ng-container>
 
     <ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
       <p-progressbar
-        [value]="porcentaje"
-        styleClass="progress-orange"
+      [value]="porcentaje"
+      styleClass="progress-orange"
       ></p-progressbar>
     </ng-container>
 
     <ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
       <p-progressbar
-        [value]="porcentaje"
-        styleClass="progress-green"
+      [value]="porcentaje"
+      styleClass="progress-green"
       ></p-progressbar>
     </ng-container>
 
     <ng-container *ngIf="porcentaje >= 75">
       <p-progressbar
-        [value]="porcentaje"
-        styleClass="progress-blue"
+      [value]="porcentaje"
+      styleClass="progress-blue"
       ></p-progressbar>
     </ng-container>
   </div>
+  -->
+  <div class="progress-bar">
+  <div class="flex-progress-bar">
+    <h2 class="page-title">Estado General del Sistema</h2>
+
+    <!-- TAGS SEGÚN PORCENTAJE -->
+    <ng-container *ngIf="porcentaje >= 70">
+      <p-tag severity="success" value="ACEPTABLE" styleClass="status-tag"></p-tag>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
+      <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje < 40">
+      <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
+    </ng-container>
+  </div>
+
+  <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
+
+  <!-- PROGRESS BAR SEGÚN PORCENTAJE -->
+  <ng-container *ngIf="porcentaje < 25">
+    <p-progressbar [value]="porcentaje" styleClass="progress-red"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
+    <p-progressbar [value]="porcentaje" styleClass="progress-orange"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
+    <p-progressbar [value]="porcentaje" styleClass="progress-green"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 75">
+    <p-progressbar [value]="porcentaje" styleClass="progress-blue"></p-progressbar>
+  </ng-container>
+</div>
 
   <div class="table-container">
     <div class="table-header-flex">

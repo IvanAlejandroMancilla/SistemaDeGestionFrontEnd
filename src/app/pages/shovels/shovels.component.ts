@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIf, NgStyle,NgFor, CommonModule } from '@angular/common';
+import { NgIf, NgStyle, NgFor, CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { apiDashboardDashboardGet, apiShovelsListadepalasGet } from '../../api/functions';
 import { HttpClient } from '@angular/common/http';
@@ -13,114 +13,52 @@ import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { ShovelInfoDialogComponent } from './components/shovel-info-dialog/shovel-info-dialog.component';
 
-
 @Component({
   selector: 'app-shovels',
   standalone: true,
   imports: [
-    ButtonModule,NgFor,
-    NgIf,CommonModule,
+    ButtonModule,
+    NgFor,
+    NgIf,
+    CommonModule,
     ProgressSpinnerModule,
     ProgressBarModule,
     ToastModule,
     DataViewModule,
     TagModule,
-    PanelModule,DialogModule,ShovelInfoDialogComponent
+    PanelModule,
+    DialogModule,
+    ShovelInfoDialogComponent
   ],
   templateUrl: './shovels.component.html',
   styleUrl: './shovels.component.css',
 })
 export class ShovelsComponent {
 
-  /* resumen */
-  resumenShovels: any = null;
-  porcentaje: number = 90;
+  constructor(private http: HttpClient) {}
 
-  /* lista palas*/
+  resumenShovels: any = null;
+  porcentaje: number =10;
+
   showDialog: boolean = false;
   shovelsList: any[] = [];
   loading: boolean = false;
 
+  estadosOperacionales = [
+    { label: 'Online', value: 1 },
+    { label: 'Mantenimiento', value: 2 },
+    { label: 'Offline', value: 3 }
+  ];
 
-estadosOperacionales = [
-  { label: 'Online', value: 1 },
-  { label: 'Mantenimiento', value: 2 },
-  { label: 'Offline', value: 3 }
-];
+  estado: string = 'operativa'; // 'operativa', 'offline', 'mantenimiento'
 
-private getStatusName(value: number): string {
-  const estado = this.estadosOperacionales.find(e => e.value === value);
-  return estado ? estado.label : 'Desconocido';
-}
-
-private fetchShovels() {
-  return apiShovelsListadepalasGet(this.http, environment.urlBack);
-}
-private parseResponse(resp: any) {
-  return JSON.parse(resp.body);
-}
-private mapShovels(data: any[]) {
-  const result = data.map(item => ({
-    idShovel: item.idShovel,
-    serialNumber: item.serialNumber,
-    model: item.model,
-    brand: item.brand,
-    dateTime: item.dateTime,
-    status: {
-      id: item.status,
-      name: this.getStatusName(item.status)
-    }
-  }));
-
-  console.log('Shovels formateadas:', result);
-
-  return result;
-}
-
-getSeverity(status: string) {
-  switch (status.toLowerCase()) {
-    case 'abierto': return 'warn';
-    case 'aprobado': return 'info';
-    case 'en espera': return 'secondary';
-    case 'finalizado': return 'success';
-
-    case 'online': return 'success';
-    case 'offline': return 'danger';
-    case 'mantenimiento': return 'warn';
-
-    default: return 'contrast';
-  }
-}
-
-loadShovels() {
-  this.loading = true;
-
-  this.fetchShovels().subscribe({
-    next: (resp) => {
-      const json = this.parseResponse(resp);
-      this.shovelsList = this.mapShovels(json.data || []);
-      this.loading = false;
-    },
-    error: (err) => {
-      console.error(err);
-      this.loading = false;
-    }
-  });
-}
-
-
-
-
-  constructor(private http: HttpClient) {}
-
+  // CICLO DE VIDA
   ngOnInit(): void {
     this.loadDashboardSummary();
-     this.loadShovels();
+    this.loadShovels();
   }
 
-
-
-/* Sumary status */
+  // MÓDULO: DASHBOARD
   loadDashboardSummary() {
     const rootUrl = environment.urlBack;
 
@@ -142,6 +80,7 @@ loadShovels() {
             mantenimiento: shovelsCounts.Mantenimiento,
             offline: shovelsCounts.Offline,
           };
+          this.porcentaje = this.getStatusPercent(this.resumenShovels);
 
           console.log('Resumen Shovels:', this.resumenShovels);
         }
@@ -151,9 +90,82 @@ loadShovels() {
       },
     });
   }
+  getStatusPercent(resumen: any): number {
+  if (!resumen || resumen.total === 0) return 0;
+
+  const online = resumen.online || 0;
+  const mantenimiento = resumen.mantenimiento || 0;
+  const total = resumen.total || 0;
+
+  const porcentaje = ((online + mantenimiento) / total) * 100;
+
+  return Math.round(porcentaje);
+}
 
 
+  //  LISTA DE PALAS
 
+  loadShovels() {
+    this.loading = true;
+
+    this.fetchShovels().subscribe({
+      next: (resp) => {
+        const json = this.parseResponse(resp);
+        this.shovelsList = this.mapShovels(json.data || []);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+      }
+    });
+  }
+
+  private fetchShovels() {
+    return apiShovelsListadepalasGet(this.http, environment.urlBack);
+  }
+
+  private parseResponse(resp: any) {
+    return JSON.parse(resp.body);
+  }
+
+  private mapShovels(data: any[]) {
+    const result = data.map(item => ({
+      idShovel: item.idShovel,
+      serialNumber: item.serialNumber,
+      model: item.model,
+      brand: item.brand,
+      dateTime: item.dateTime,
+      status: {
+        id: item.status,
+        name: this.getStatusName(item.status)
+      }
+    }));
+
+    console.log('Shovels formateadas:', result);
+    return result;
+  }
+
+  // GETTERS
+  private getStatusName(value: number): string {
+    const estado = this.estadosOperacionales.find(e => e.value === value);
+    return estado ? estado.label : 'Desconocido';
+  }
+
+  getSeverity(status: string) {
+    switch (status.toLowerCase()) {
+      case 'abierto': return 'warn';
+      case 'aprobado': return 'info';
+      case 'en espera': return 'secondary';
+      case 'finalizado': return 'success';
+
+      case 'online': return 'success';
+      case 'offline': return 'danger';
+      case 'mantenimiento': return 'warn';
+
+      default: return 'contrast';
+    }
+  }
 
   getStatusText(): string {
     if (this.porcentaje >= 70) return 'ACEPTABLE';
@@ -161,18 +173,12 @@ loadShovels() {
     return 'GRAVE';
   }
 
-  estado: string = 'operativa'; // 'operativa', 'offline', 'mantenimiento'
-
-getEstadoSeverity(estado: string): string {
-  switch(estado) {
-    case 'operativa':
-      return 'success';
-    case 'offline':
-      return 'danger';
-    case 'mantenimiento':
-      return 'warn';
-    default:
-      return 'info';
+  getEstadoSeverity(estado: string): string {
+    switch (estado) {
+      case 'operativa': return 'success';
+      case 'offline': return 'danger';
+      case 'mantenimiento': return 'warn';
+      default: return 'info';
+    }
   }
-}
 }
