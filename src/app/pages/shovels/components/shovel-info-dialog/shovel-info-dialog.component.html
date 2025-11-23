@@ -1,2 +1,100 @@
-<p>{{ rawResponse }}</p>
-<p> rawResponse </p>
+<p-tabs value="0">
+  <p-tablist>
+    <p-tab value="0">Lista de Incidencias</p-tab>
+    <p-tab value="1">Grafico de Rendimiento</p-tab>
+    <p-tab value="2">KPIS</p-tab>
+  </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel value="0">
+      <p-table   [value]="incidents"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID Incidente</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Descripción</th>
+            <th>Observación</th>
+            <th>Estado</th>
+            <th>Detalle Estado</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.idINCIDNT ?? "Sin Datos" }}</td>
+            <td>{{ (item.datetime | date : "yyyy-MM-dd") || "Sin Datos" }}</td>
+            <td>{{ (item.datetime | date : "HH:mm:ss") || "Sin Datos" }}</td>
+            <td>{{ item.description ?? "Sin Datos" }}</td>
+            <td>{{ item.observation ?? "Sin Datos" }}</td>
+
+            <td>
+              <p-tag *ngIf="item.statusIncident?.name" [value]="item.statusIncident.name"
+                [severity]="getSeverity(item.statusIncident.name)" [rounded]="true"></p-tag>
+            </td>
+
+            <td>
+              {{ item.statusIncident?.description ?? "Sin Datos" }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabpanel>
+    <p-tabpanel value="1">
+      <div class="card">
+          EN desarrollo
+      </div>
+    </p-tabpanel>
+    <p-tabpanel value="2">
+      <div class="shovels-grid">
+        <p-card class="cards-grid">
+          <div class="kpi-container">
+            <i class="pi pi-list-check icon-kpi-total"></i>
+            <h4 class="kpi-title">Total Incidentes</h4>
+            <span class="kpi-value">{{ incidentStats.total }}</span>
+            <span class="kpi-subtitle">Registrados para esta pala</span>
+          </div>
+        </p-card>
+
+        <p-card class="cards-grid">
+          <div class="kpi-container">
+            <i class="pi pi-clock icon-kpi-wait"></i>
+            <h4 class="kpi-title">En Espera</h4>
+            <span class="kpi-value">{{ incidentStats.espera }}</span>
+            <span class="kpi-subtitle">Pendientes de validación</span>
+          </div>
+        </p-card>
+
+        <p-card class="cards-grid">
+          <div class="kpi-container">
+            <i class="pi pi-exclamation-circle icon-kpi-abierto"></i>
+            <h4 class="kpi-title">Abiertos</h4>
+            <span class="kpi-value">{{ incidentStats.abiertos }}</span>
+            <span class="kpi-subtitle">Sin resolución</span>
+          </div>
+        </p-card>
+
+        <p-card class="cards-grid">
+          <div class="kpi-container">
+            <i class="pi pi-check-circle icon-kpi-aprobado"></i>
+            <h4 class="kpi-title">Aprobados</h4>
+            <span class="kpi-value">{{ incidentStats.aprobados }}</span>
+            <span class="kpi-subtitle">Verificados</span>
+          </div>
+        </p-card>
+
+        <p-card class="cards-grid">
+          <div class="kpi-container">
+            <i class="pi pi-check icon-kpi-final"></i>
+            <h4 class="kpi-title">Finalizados</h4>
+            <span class="kpi-value">{{ incidentStats.finalizados }}</span>
+            <span class="kpi-subtitle">Resueltos</span>
+          </div>
+        </p-card>
+      </div>
+    </p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

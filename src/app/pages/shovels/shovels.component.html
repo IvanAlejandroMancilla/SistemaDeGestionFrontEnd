@@ -288,110 +288,14 @@
   header="Información"
   [(visible)]="showDialog"
   [modal]="true"
-  [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
+  [maximizable]="true"
+
+
 >
   <app-shovel-info-dialog
     [shovelId]="selectedShovelId">
   </app-shovel-info-dialog>
 </p-dialog>
 
-<!--
-https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
-https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
-https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
-https://claude.ai/share/afd489ac-dc40-4e4e-8ba7-f299cda27f75
--->
-<!--
-<ng-container *ngFor="let _ of [1, 2, 3, 4]; let i = index">
-        <div class="element-container" style="max-width: 70rem">
-          <div class="flex-progress-bar">
-            <h3 class="card-title" style="font-size: 1rem">Pala #1</h3>
-            <p-tag [value]="'Online'" [severity]=""></p-tag>
-            <div id="3">
-              <div>
-                <button
-                  (click)="showDialog = true"
-                  class="p-button-sm p-button-text"
-                  pButton
-                  icon="pi pi-eye"
-                  label="Ver"
-                  style="font-size: 0.8rem; padding: 0.4rem 0.8rem"
-                ></button>
-              </div>
-            </div>
-          </div>
-          <ng-container>
-            <!-- Columna izquierda: datos básicos de la pala
-            <div class="shovels-grid" style="gap: 0.5rem">
-              <div id="1">
-                <div>
-                  <h4
-                    class="page-subtitle"
-                    style="font-size: 0.85rem; margin-bottom: 0.25rem"
-                  >
-                    Número de Serie
-                  </h4>
-                  <i
-                    class="pi pi-hashtag icon-style"
-                    style="font-size: 0.875rem"
-                  ></i>
-                  <span class="description-span" style="font-size: 0.875rem"
-                    >SHV-001</span
-                  >
-                </div>
-                <div>
-                  <h4
-                    class="page-subtitle"
-                    style="font-size: 0.85rem; margin-bottom: 0.25rem"
-                  >
-                    Marca
-                  </h4>
-                  <i
-                    class="pi pi-tag icon-style"
-                    style="font-size: 0.875rem"
-                  ></i>
-                  <span class="description-span" style="font-size: 0.875rem"
-                    >Hitachi</span
-                  >
-                </div>
-              </div>
-              <div id="2">
-                <div>
-                  <h4
-                    class="page-subtitle"
-                    style="font-size: 0.85rem; margin-bottom: 0.25rem"
-                  >
-                    Modelo
-                  </h4>
-                  <i
-                    class="pi pi-box icon-style"
-                    style="font-size: 0.875rem"
-                  ></i>
-                  <span class="description-span" style="font-size: 0.875rem"
-                    >EX5600-7</span
-                  >
-                </div>
-                <div>
-                  <h4
-                    class="page-subtitle"
-                    style="font-size: 0.85rem; margin-bottom: 0.25rem"
-                  >
-                    Fecha
-                  </h4>
-                  <i
-                    class="pi pi-calendar icon-style"
-                    style="font-size: 0.875rem"
-                  ></i>
-                  <span class="description-span" style="font-size: 0.875rem"
-                    >asdasd</span
-                  >
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-      </ng-container>
-
--->

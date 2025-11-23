@@ -1,21 +1,22 @@
- :host {
+:host {
   display: block;
 }
 
-/* ESTADO DE TARJETAS*/
+/* ESTADO DE TARJETAS */
 .status-badges {
   display: flex;
   gap: 10px;
   margin-bottom: 1rem;
 }
 
-/* estilo de icono*/
+/* estilo de icono */
 .icon-style{
- font-size: 1rem;
- color: #3b82f6;
- margin-right: 0.5rem;
+  font-size: 1rem;
+  color: #3b82f6;
+  margin-right: 0.5rem;
 }
 
+/* CONTENEDOR GENERAL */
 .page-container {
   background-color: white;
   border-radius: 12px;
@@ -24,6 +25,7 @@
   min-height: 400px;
 }
 
+/* TITULOS */
 .page-title {
   font-size: 1.75rem;
   font-weight: 600;
@@ -39,13 +41,18 @@
   margin-top: 0.5rem;
 }
 
+/* TEXTOS */
 .description-span{
   font-size: 1rem;
   font-weight: 600;
   color: #2c3e50;
 }
 
+.textspan{
+  margin-left: 0.5rem;
+}
 
+/* TARJETAS / ELEMENTOS */
 .element-container {
   background-color: #f8f9fa;
   border-radius: 12px;
@@ -55,18 +62,31 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.element-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
+/* GRILLA DE TARJETAS */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   margin-top: 1.5rem;
 }
 
-.textspan{
-  margin-left: 0.5rem;
+/* TABLA */
+.table-containesr {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: auto;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* IMAGENES */
 .image-formate {
   width: 110%;
   height: auto;
@@ -74,8 +94,77 @@
   display: block;
 }
 
+/* :host ::ng-deep .p-datatable td,
+:host ::ng-deep .p-datatable th {
+  padding: 6px 8px !important;
+  font-size: 12px !important;
+}
 
+:host ::ng-deep .p-datatable {
+  font-size: 12px !important;
+} */
 
+/* jpis*/
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
 
+.kpi-card {
+  border-radius: 12px;
+}
 
+.kpi-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
 
+.kpi-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-top: 0.4rem;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-top: 0.4rem;
+}
+
+.kpi-subtitle {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+/* icons */
+.icon-kpi-total { color: #3b82f6; font-size: 2rem; }
+.icon-kpi-wait { color: #fbbf24; font-size: 2rem; }
+.icon-kpi-abierto { color: #ef4444; font-size: 2rem; }
+.icon-kpi-aprobado { color: #22c55e; font-size: 2rem; }
+.icon-kpi-final { color: #10b981; font-size: 2rem; }
+
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.flex-item {
+  flex: 1 1 calc(33.333% - 1.5rem);
+  min-width: 250px;
+}
+
+.shovels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 1.5rem;
+}
