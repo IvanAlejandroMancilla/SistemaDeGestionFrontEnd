@@ -1,6 +1,156 @@
 <div class="page-container">
-  <div class="content">
-    <!-- Tu contenido del dashboard aquí -->
-    <p>Dashboard works!</p>
+  <h2 class="page-title">Dashboard Operacional</h2>
+  <h3 class="page-subtitle">
+    Visualización consolidada del estado del sistema
+  </h3>
+  <!-- Primer Bloque -->
+  <div class="cards-grid">
+    <div class="container-module">
+      <h2 class="module-title">Incidencias</h2>
+      <!---inicio-->
+      <div class="cards-grid">
+        <ng-container *ngIf="resumenIncident; else loading">
+          <div class="container-module">
+            <i
+              class="pi pi-exclamation-circle"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Abiertos</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.abierto }}
+            </span>
+            <span class="textspan">Requieren atención</span>
+          </div>
+          <div class="container-module">
+            <i
+              class="pi pi-verified"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Aprobados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.aprobado }}
+            </span>
+            <span class="textspan">Prioridad máxima</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Finalizados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.finalizado }}
+            </span>
+            <span class="textspan">Incidentes concluidos</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Cancelados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.cancelado }}
+            </span>
+            <span class="textspan">Falsos Positivos</span>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <!--<p-progress-spinner ariaLabel="loading" />
+        O un mensaje simple: <p>Cargando datos...</p> -->
+        </ng-template>
+      </div>
+      <!---fin-->
+      <div class="flex-progress-bar" style="margin-top: 20px">
+        <h4 class="page-subtitle">Total de Incidentes</h4>
+        <span style="font-size: 1.7rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.total }}
+        </span>
+      </div>
+    </div>
+    <!--fin de Incidencias-->
+    <!--Inicio de Esado de palas-->
+    <div class="container-module">
+      <h2 class="module-title">Estado de las palas</h2>
+
+      <div class="cards-grid">
+        <ng-container *ngIf="resumenIncident; else loading">
+          <div class="container-module">
+            <i
+              class="pi pi-exclamation-circle"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Abiertos</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.abierto }}
+            </span>
+            <span class="textspan">Requieren atención</span>
+          </div>
+          <div class="container-module">
+            <i
+              class="pi pi-verified"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Aprobados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.aprobado }}
+            </span>
+            <span class="textspan">Prioridad máxima</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Finalizados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.finalizado }}
+            </span>
+            <span class="textspan">Incidentes concluidos</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Cancelados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.cancelado }}
+            </span>
+            <span class="textspan">Falsos Positivos</span>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <!--<p-progress-spinner ariaLabel="loading" />
+        O un mensaje simple: <p>Cargando datos...</p> -->
+        </ng-template>
+      </div>
+      <!---fin-->
+      <div class="flex-progress-bar" style="margin-top: 20px">
+        <h4 class="page-subtitle">Total de Palas</h4>
+        <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
+          {{ resumenIncident.total }}
+        </span>
+      </div>
+
+      <div class="flex-progress-bar" style="margin-top: 20px">
+        <h4 class="page-subtitle">Disponibilidad</h4>
+        <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
+          {{ resumenIncident.total }}
+        </span>
+      </div>
+
+      <!-- estado de las palas-->
+    </div>
+  </div>
+
+  <!-- fin Primer Bloque -->
+
+  <div class="table-container">
+    <h2 class="page-title">Análisis de Tendencias por Mes</h2>
+    <h3 class="page-subtitle">
+      Historial mensual para identificación de tendencias
+    </h3>
+  </div>
+
+    <div class="table-container">
+    <h2 class="page-title">Resumen Operacional de la Flota</h2>
+    <h3 class="page-subtitle">
+      Indicadores de disponibilidad y mantenimiento por marca
+    </h3>
   </div>
 </div>

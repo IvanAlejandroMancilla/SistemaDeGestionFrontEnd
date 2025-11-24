@@ -131,7 +131,7 @@
             <div class="info-value">
               <i class="pi pi-calendar icon-style"></i>
               <span class="description-span">
-                {{ incident.datetime }}
+                {{ incident.datetime | date:'dd/MM/yyyy HH:mm:ss':'UTC-6' }}
               </span>
             </div>
           </div>
