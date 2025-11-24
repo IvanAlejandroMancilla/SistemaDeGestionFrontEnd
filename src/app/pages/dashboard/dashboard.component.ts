@@ -7,6 +7,7 @@ import { interval, Subscription, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ChartData, ChartOptions } from 'chart.js';
 import { environment } from '../../../environments/environment';
+import { DashboardResponse, IncidentsStatusCounts, ShovelsStatusCounts } from './model/dashboard-detail.model';
 
 
 
@@ -23,14 +24,8 @@ apiDashboardDashboardGet
 
 export class DashboardComponent implements OnInit {
 
-  // Resumen de incidentes (igual que en el componente de incidentes)
-  resumenIncident!: {
-    total: number;
-    abierto: number;
-    aprobado: number;
-    cancelado: number;
-    finalizado: number;
-  };
+  resumenIncident!: IncidentsStatusCounts;
+  resumenShovels!: ShovelsStatusCounts;
 
   constructor(private http: HttpClient) {}
 
@@ -39,36 +34,36 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  loadDashboardSummary() {
+ loadDashboardSummary() {
     const rootUrl = environment.urlBack;
 
     apiDashboardDashboardGet(this.http, rootUrl).subscribe({
       next: (response: any) => {
 
-        // Esto asegura compatibilidad con tu backend
-        const body = typeof response.body === 'string'
-          ? JSON.parse(response.body)
-          : response.body;
+        const body: DashboardResponse =
+          typeof response.body === 'string'
+            ? JSON.parse(response.body)
+            : response.body;
 
-        const statusCounts = body?.JsonResponse?.[0]?.incidents_status_counts;
+        const data = body.JsonResponse[0];
 
-        if (statusCounts) {
-          this.resumenIncident = {
-            total: statusCounts.Total,
-            abierto: statusCounts.Abierto,
-            aprobado: statusCounts.Aprobado,
-            cancelado: statusCounts.Cancelado,
-            finalizado: statusCounts.Finalizado
-          };
-          console.log('Dashboard desde burno Summary:', this.resumenIncident);
-        }
+        // INCIDENTES
+        this.resumenIncident = {
+          ...data.incidents_status_counts
+        };
+
+        // PALAS
+        this.resumenShovels = {
+          ...data.shovels_status_counts
+        };
+
+        console.log('Incidentes:', this.resumenIncident);
+        console.log('Shovels:', this.resumenShovels);
       },
+
       error: (error) => {
         console.error('Error loading dashboard:', error);
       }
     });
-  };
-
-
-
+  }
 }
