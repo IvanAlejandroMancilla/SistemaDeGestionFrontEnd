@@ -140,7 +140,7 @@ export class ShovelsComponent {
       serialNumber: item.serialNumber,
       model: item.model,
       brand: item.brand,
-      dateTime: item.dateTime,
+      datetime: item.datetime,
       status: {
         id: item.status,
         name: this.getStatusName(item.status)

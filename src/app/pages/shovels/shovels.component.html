@@ -269,7 +269,8 @@
             </h4>
             <i class="pi pi-calendar icon-style" style="font-size: 0.875rem"></i>
             <span class="description-span" style="font-size: 0.875rem">
-              {{ shovel.dateTime ?? 'Fecha no encontrada' }}
+              {{ shovel.datetime | date:'dd/MM/yy HH:mm' }}
+
             </span>
           </div>
         </div>

@@ -147,6 +147,10 @@
     <h3 class="page-subtitle">
       Historial mensual para identificación de tendencias
     </h3>
+        <p-chart type="line"
+         [data]="incidentTrendData"
+         [options]="chartOptions">
+</p-chart>
   </div>
 
     <div class="table-container">
@@ -154,11 +158,58 @@
     <h3 class="page-subtitle">
       Indicadores de disponibilidad y mantenimiento por marca
     </h3>
+<p-chart type="bar" [data]="shovelBrandData" [options]="chartOptions"></p-chart>
 
-    <p-chart type="line"
-         [data]="incidentTrendData"
-         [options]="chartOptions">
-</p-chart>
+
+    <div>
+<div class="brand-summary-table" *ngIf="resumenMarcas">
+
+  <div
+    class="brand-row"
+    *ngFor="let marca of resumenMarcas; let i = index"
+    [ngClass]="{
+      'brand-first': i === 0,
+      'brand-last': i === resumenMarcas.length - 1
+    }"
+  >
+
+    <!-- Nombre de la marca -->
+    <span class="brand-name">
+      <i class="pi pi-truck" style="margin-right:5px;"></i>
+      {{ marca.name }}
+    </span>
+
+    <!-- Total -->
+    <span class="brand-total">
+      <i class="pi pi-list"></i> Total:
+      {{ marca.total }}
+    </span>
+
+    <!-- Online -->
+    <span class="brand-status online">
+      <i class="pi pi-check-circle"></i>
+      {{ marca.online }}
+    </span>
+
+    <!-- Mantenimiento -->
+    <span class="brand-status maintenance">
+      <i class="pi pi-wrench"></i>
+      {{ marca.mantenimiento }}
+    </span>
+
+    <!-- Offline -->
+    <span class="brand-status offline">
+      <i class="pi pi-times-circle"></i>
+      {{ marca.offline }}
+    </span>
+
+  </div>
+
+</div>
+
+
+    </div>
+
 
   </div>
 </div>

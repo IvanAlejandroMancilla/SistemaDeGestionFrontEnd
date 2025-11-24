@@ -40,3 +40,12 @@ export interface DashboardJsonResponseItem {
 export interface DashboardResponse {
   JsonResponse: DashboardJsonResponseItem[];
 }
+
+export interface MarcaResumen {
+  name: string;
+  online: number;
+  mantenimiento: number;
+  offline: number;
+  total: number;
+}
+
