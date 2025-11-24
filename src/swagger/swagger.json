@@ -52,6 +52,29 @@
         }
       }
     },
+    "/api/Incidents/IncidentByShovel/{idShovel}": {
+      "get": {
+        "tags": [
+          "Incidents"
+        ],
+        "parameters": [
+          {
+            "name": "idShovel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Incidents": {
       "post": {
         "tags": [

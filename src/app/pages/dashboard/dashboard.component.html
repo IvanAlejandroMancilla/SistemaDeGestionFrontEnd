@@ -1,6 +1,215 @@
 <div class="page-container">
-  <div class="content">
-    <!-- Tu contenido del dashboard aquí -->
-    <p>Dashboard works!</p>
+  <h2 class="page-title">Dashboard Operacional</h2>
+  <h3 class="page-subtitle">
+    Visualización consolidada del estado del sistema
+  </h3>
+  <!-- Primer Bloque -->
+  <div class="cards-grid">
+    <div class="container-module">
+      <h2 class="module-title">Incidencias</h2>
+      <!---inicio-->
+      <div class="cards-grid">
+        <ng-container *ngIf="resumenIncident; else loading">
+          <div class="container-module">
+            <i
+              class="pi pi-exclamation-circle"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Abiertos</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.Abierto }}
+            </span>
+            <span class="textspan">Requieren atención</span>
+          </div>
+          <div class="container-module">
+            <i
+              class="pi pi-verified"
+              style="font-size: 2rem; color: #3b82f6"
+            ></i>
+            <h4 class="page-subtitle">Incidentes Aprobados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.Aprobado }}
+            </span>
+            <span class="textspan">Prioridad máxima</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Finalizados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.Finalizado }}
+            </span>
+            <span class="textspan">Incidentes concluidos</span>
+          </div>
+
+          <div class="container-module">
+            <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+            <h4 class="page-subtitle">Incidentes Cancelados</h4>
+            <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+              {{ resumenIncident.Cancelado }}
+            </span>
+            <span class="textspan">Falsos Positivos</span>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <!--<p-progress-spinner ariaLabel="loading" />
+        O un mensaje simple: <p>Cargando datos...</p> -->
+        </ng-template>
+      </div>
+      <!---fin-->
+      <div class="flex-progress-bar" style="margin-top: 20px">
+        <h4 class="page-subtitle">Total de Incidentes</h4>
+        <span style="font-size: 1.7rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.Total }}
+        </span>
+      </div>
+    </div>
+    <!--fin de Incidencias-->
+    <!--Inicio de Esado de palas-->
+   <div class="container-module">
+  <h2 class="module-title">Estado de las palas</h2>
+
+  <div class="cards-grid">
+    <ng-container *ngIf="resumenShovels; else loading">
+
+      <div class="container-module">
+        <i
+          class="pi pi-exclamation-circle"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Abiertos</h4>
+        <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.Online }}
+        </span>
+        <span class="textspan">Requieren atención</span>
+      </div>
+
+      <div class="container-module">
+        <i
+          class="pi pi-verified"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Aprobados</h4>
+        <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.Mantenimiento }}
+        </span>
+        <span class="textspan">Prioridad máxima</span>
+      </div>
+
+      <div class="container-module">
+        <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Finalizados</h4>
+        <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.Offline }}
+        </span>
+        <span class="textspan">Incidentes concluidos</span>
+      </div>
+
+      <div class="container-module">
+        <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Cancelados</h4>
+        <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenShovels.Total }}
+        </span>
+        <span class="textspan">Falsos Positivos</span>
+      </div>
+
+    </ng-container>
+
+    <ng-template #loading>
+      <!-- loading -->
+    </ng-template>
+  </div>
+
+  <div class="flex-progress-bar" style="margin-top: 20px">
+    <h4 class="page-subtitle">Total de Palas</h4>
+    <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
+      {{ resumenShovels.Total }}
+    </span>
+  </div>
+
+  <div class="flex-progress-bar" style="margin-top: 20px">
+    <h4 class="page-subtitle">Disponibilidad</h4>
+    <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
+      {{ (resumenShovels.Online / resumenShovels.Total) * 100 | number:'1.0-1' }}%
+    </span>
+  </div>
+
+  <!-- estado de las palas-->
+</div>
+  </div>
+
+  <!-- fin Primer Bloque -->
+
+  <div class="table-container">
+    <h2 class="page-title">Análisis de Tendencias por Mes</h2>
+    <h3 class="page-subtitle">
+      Historial mensual para identificación de tendencias
+    </h3>
+        <p-chart type="line"
+         [data]="incidentTrendData"
+         [options]="chartOptions">
+</p-chart>
+  </div>
+
+    <div class="table-container">
+    <h2 class="page-title">Resumen Operacional de la Flota</h2>
+    <h3 class="page-subtitle">
+      Indicadores de disponibilidad y mantenimiento por marca
+    </h3>
+<p-chart type="bar" [data]="shovelBrandData" [options]="chartOptions"></p-chart>
+
+
+    <div>
+<div class="brand-summary-table" *ngIf="resumenMarcas">
+
+  <div
+    class="brand-row"
+    *ngFor="let marca of resumenMarcas; let i = index"
+    [ngClass]="{
+      'brand-first': i === 0,
+      'brand-last': i === resumenMarcas.length - 1
+    }"
+  >
+
+    <!-- Nombre de la marca -->
+    <span class="brand-name">
+      <i class="pi pi-truck" style="margin-right:5px;"></i>
+      {{ marca.name }}
+    </span>
+
+    <!-- Total -->
+    <span class="brand-total">
+      <i class="pi pi-list"></i> Total:
+      {{ marca.total }}
+    </span>
+
+    <!-- Online -->
+    <span class="brand-status online">
+      <i class="pi pi-check-circle"></i>
+      {{ marca.online }}
+    </span>
+
+    <!-- Mantenimiento -->
+    <span class="brand-status maintenance">
+      <i class="pi pi-wrench"></i>
+      {{ marca.mantenimiento }}
+    </span>
+
+    <!-- Offline -->
+    <span class="brand-status offline">
+      <i class="pi pi-times-circle"></i>
+      {{ marca.offline }}
+    </span>
+
+  </div>
+
+</div>
+
+
+    </div>
+
+
   </div>
 </div>

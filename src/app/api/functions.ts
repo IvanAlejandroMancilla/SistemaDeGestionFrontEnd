@@ -7,6 +7,8 @@ export type { ApiIncidentsListaIncidentsGet$Params } from './fn/incidents/api-in
 export { apiIncidentsListaIncidentsGet } from './fn/incidents/api-incidents-lista-incidents-get';
 export type { ApiIncidentsIncidentByIdIdIncidntGet$Params } from './fn/incidents/api-incidents-incident-by-id-id-incidnt-get';
 export { apiIncidentsIncidentByIdIdIncidntGet } from './fn/incidents/api-incidents-incident-by-id-id-incidnt-get';
+export type { ApiIncidentsIncidentByShovelIdShovelGet$Params } from './fn/incidents/api-incidents-incident-by-shovel-id-shovel-get';
+export { apiIncidentsIncidentByShovelIdShovelGet } from './fn/incidents/api-incidents-incident-by-shovel-id-shovel-get';
 export type { ApiIncidentsPost$Params } from './fn/incidents/api-incidents-post';
 export { apiIncidentsPost } from './fn/incidents/api-incidents-post';
 export type { ApiIncidentsUpdateObservationPatch$Params } from './fn/incidents/api-incidents-update-observation-patch';
