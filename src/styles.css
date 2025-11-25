@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/* body{
+  background-color: #dff9e6;
+  color: black;
+} */
+
+body {
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/*background-color: #b0f2c2; COLOR INICIAL CAMBIADO DESDE LA PALETA DE SU COLOR
+https://www.color-hex.com/color/b0f2c2
+C*/

@@ -1,0 +1,303 @@
+<!-- Corregido-->
+<div class="page-container">
+  <h2 class="page-title">Gestión de Palas Eléctricas</h2>
+  <h3 class="page-subtitle">
+    Control y seguimiento de Palas Eléctricas en operación dentro de la flota.
+  </h3>
+  <!-- Corregido-->
+
+  <div class="cards-grid">
+    <ng-container *ngIf="resumenShovels; else loading">
+      <!-- Total de Equipos -->
+      <div class="element-container">
+        <i class="pi pi-chart-line icon-kpi-total"></i>
+        <h4 class="page-subtitle">Total de Equipos</h4>
+
+        <span class="kpi-number">
+          {{ resumenShovels.total }}
+        </span>
+
+        <span class="textspan">Equipos registrados</span>
+      </div>
+
+      <!-- Equipos Online -->
+      <div class="element-container">
+        <i class="pi pi-check-circle icon-kpi-online"></i>
+        <h4 class="page-subtitle">Equipos Online</h4>
+
+        <span
+          class="kpi-number"
+          style="font-size: 2.5rem; font-weight: 700; color: #2c3e50"
+        >
+          {{ resumenShovels.online }}
+        </span>
+
+        <span class="textspan">Operativos</span>
+      </div>
+
+      <!-- Equipos en Mantenimiento -->
+      <div class="element-container">
+        <i class="pi pi-wrench icon-kpi-mant"></i>
+        <h4 class="page-subtitle">Equipos en Mantenimiento</h4>
+
+        <span
+          class="kpi-number"
+          style="font-size: 2.5rem; font-weight: 700; color: #2c3e50"
+        >
+          {{ resumenShovels.mantenimiento }}
+        </span>
+
+        <span class="textspan">Revisión en curso</span>
+      </div>
+
+      <!-- Equipos Offline -->
+      <div class="element-container">
+        <i class="pi pi-ban icon-kpi-offline"></i>
+        <h4 class="page-subtitle">Equipos Offline</h4>
+
+        <span
+          class="kpi-number"
+          style="font-size: 2.5rem; font-weight: 700; color: #2c3e50"
+        >
+          {{ resumenShovels.offline }}
+        </span>
+
+        <span class="textspan">Fuera de servicio</span>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
+    </ng-template>
+  </div>
+<!--
+  <div class="progress-bar">
+    <div class="flex-progress-bar">
+      <h2 class="page-title">Estado General del Sistema</h2>
+      <ng-container *ngIf="porcentaje >= 70">
+        <p-tag
+          severity="success"
+          value="ACEPTABLE"
+          styleClass="status-tag"
+          ></p-tag>
+        </ng-container>
+
+      <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
+        <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
+      </ng-container>
+
+      <ng-container *ngIf="porcentaje < 40">
+        <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
+      </ng-container>
+    </div>
+
+    <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
+
+    <ng-container *ngIf="porcentaje < 25">
+      <p-progressbar
+      [value]="porcentaje"
+      styleClass="progress-red"
+      ></p-progressbar>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
+      <p-progressbar
+      [value]="porcentaje"
+      styleClass="progress-orange"
+      ></p-progressbar>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
+      <p-progressbar
+      [value]="porcentaje"
+      styleClass="progress-green"
+      ></p-progressbar>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje >= 75">
+      <p-progressbar
+      [value]="porcentaje"
+      styleClass="progress-blue"
+      ></p-progressbar>
+    </ng-container>
+  </div>
+  -->
+  <div class="progress-bar">
+  <div class="flex-progress-bar">
+    <h2 class="page-title">Estado General del Sistema</h2>
+
+    <!-- TAGS SEGÚN PORCENTAJE -->
+    <ng-container *ngIf="porcentaje >= 70">
+      <p-tag severity="success" value="ACEPTABLE" styleClass="status-tag"></p-tag>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje >= 40 && porcentaje < 70">
+      <p-tag severity="warn" value="RIESGO" styleClass="status-tag"></p-tag>
+    </ng-container>
+
+    <ng-container *ngIf="porcentaje < 40">
+      <p-tag severity="danger" value="GRAVE" styleClass="status-tag"></p-tag>
+    </ng-container>
+  </div>
+
+  <h3 class="page-subtitle">Palas eléctricas en operación actual</h3>
+
+  <!-- PROGRESS BAR SEGÚN PORCENTAJE -->
+  <ng-container *ngIf="porcentaje < 25">
+    <p-progressbar [value]="porcentaje" styleClass="progress-red"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 25 && porcentaje < 50">
+    <p-progressbar [value]="porcentaje" styleClass="progress-orange"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 50 && porcentaje < 75">
+    <p-progressbar [value]="porcentaje" styleClass="progress-green"></p-progressbar>
+  </ng-container>
+
+  <ng-container *ngIf="porcentaje >= 75">
+    <p-progressbar [value]="porcentaje" styleClass="progress-blue"></p-progressbar>
+  </ng-container>
+</div>
+
+  <div class="table-container">
+    <div class="table-header-flex">
+      <div>
+        <h2 class="page-title">Lista de Activos: Palas Eléctricas</h2>
+        <h3 class="page-subtitle">
+          Control y seguimiento de Palas Eléctricas en operación dentro de la
+          flota.
+        </h3>
+      </div>
+
+      <div class="table-header-buttons">
+        <p-button
+          label="Exportar"
+          icon="pi pi-download"
+          severity="secondary"
+          size="small"
+        ></p-button>
+        <p-button
+          label="Filtros"
+          icon="pi pi-filter"
+          severity="secondary"
+          size="small"
+        ></p-button>
+      </div>
+    </div>
+    <!--sadasdasdasdasdasd-->
+    <div class="shovels-grid">
+      <!-- Encabezado con título y estado -->
+      <ng-container *ngFor="let shovel of shovelsList; let i = index">
+<div class="element-container"
+     style="max-width: 70rem; background: #F8F9FA;background: linear-gradient(162deg,rgba(248, 249, 250, 1) 75%, rgba(176, 243, 194, 0.54) 97%);">
+    <div class="flex-progress-bar">
+      <h3 class="card-title" style="font-size: 1rem">
+        Pala #{{ i +1 }}
+      </h3>
+
+      <p-tag
+        [value]="shovel.status.name"
+        [severity]="getSeverity(shovel.status.name)">
+      </p-tag>
+
+      <div id="3">
+        <div>
+          <button
+            (click)="openShovelDialog(shovel.idShovel)"
+            class="p-button-sm p-button-text"
+            pButton
+            icon="pi pi-eye"
+            label="Ver"
+            style="font-size: 0.8rem; padding: 0.4rem 0.8rem"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <ng-container>
+      <div class="shovels-grid" style="gap: 0.5rem">
+        <div id="1">
+          <div>
+            <h4 class="page-subtitle" style="font-size: 0.85rem; margin-bottom: 0.25rem">
+              Número de Serie
+            </h4>
+            <i class="pi pi-hashtag icon-style" style="font-size: 0.875rem"></i>
+            <span class="description-span" style="font-size: 0.875rem">
+              {{ shovel.idShovel }}
+            </span>
+          </div>
+
+          <div>
+            <h4 class="page-subtitle" style="font-size: 0.85rem; margin-bottom: 0.25rem">
+              Número de Serie
+            </h4>
+            <i class="pi pi-tag icon-style" style="font-size: 0.875rem"></i>
+            <span class="description-span" style="font-size: 0.875rem">
+              {{ shovel.serialNumber }}
+            </span>
+          </div>
+
+
+        </div>
+
+        <div id="2">
+          <div>
+            <h4 class="page-subtitle" style="font-size: 0.85rem; margin-bottom: 0.25rem">
+              Modelo
+            </h4>
+            <i class="pi pi-box icon-style" style="font-size: 0.875rem"></i>
+            <span class="description-span" style="font-size: 0.875rem">
+              {{ shovel.model }}
+            </span>
+          </div>
+          <div>
+            <h4 class="page-subtitle" style="font-size: 0.85rem; margin-bottom: 0.25rem">
+              Marca
+            </h4>
+            <i class="pi pi-tag icon-style" style="font-size: 0.875rem"></i>
+            <span class="description-span" style="font-size: 0.875rem">
+              {{ shovel.brand }}
+            </span>
+          </div>
+        </div>
+
+        <div id="3">
+          <div>
+            <h4 class="page-subtitle" style="font-size: 0.85rem; margin-bottom: 0.25rem">
+              Fecha
+            </h4>
+            <i class="pi pi-calendar icon-style" style="font-size: 0.875rem"></i>
+            <span class="description-span" style="font-size: 0.875rem">
+              {{ shovel.datetime | date:'dd/MM/yy HH:mm' }}
+
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+    </div>
+
+    <!---->
+  </div>
+</div>
+
+<p-dialog
+  header="Información"
+  [(visible)]="showDialog"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [maximizable]="true"
+
+
+>
+  <app-shovel-info-dialog
+    [shovelId]="selectedShovelId">
+  </app-shovel-info-dialog>
+</p-dialog>
+

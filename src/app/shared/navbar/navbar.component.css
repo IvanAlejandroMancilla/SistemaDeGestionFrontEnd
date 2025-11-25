@@ -1,0 +1,61 @@
+@import "primeicons/primeicons.css";
+/* Importar PrimeIcons */
+
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+}
+
+.system-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0;
+  text-align: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  margin-right: 1rem;
+  border-radius: 50%;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+::ng-deep .custom-toolbar {
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .nav-button .p-button-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+::ng-deep .action-button .p-button-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+::ng-deep .nav-button:hover,
+::ng-deep .action-button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 1200px) {
+  .navbar-container {
+    padding: 1.5rem 2rem;
+  }
+
+  .nav-buttons {
+    flex-wrap: wrap;
+  }
+}

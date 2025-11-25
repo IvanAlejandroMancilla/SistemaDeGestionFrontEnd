@@ -1,0 +1,284 @@
+<!-- alertas de peticiones-->
+<p-toast></p-toast>
+<!-- Header con alertas de estado-->
+<ng-container *ngIf="incident; else noData">
+  <div [formGroup]="incidentForm">
+    <div class="status-badges">
+      <h3 class="page-title">Incidente #{{ incident.idINCIDNT }}</h3>
+
+      <!-- Estado de la Pala -->
+      <p-tag [value]="incident.shovel.status.name" [severity]="getSeverity(incident.shovel.status.name)">
+        <ng-template pTemplate="icon">
+          <i [class]="getIcon(incident.shovel.status.name)" class="tag-icon"></i>
+        </ng-template>
+      </p-tag>
+
+      <!-- Estado del Incidente -->
+      <p-tag [value]="incident.statusIncident.name" [severity]="getSeverity(incident.statusIncident.name)">
+        <ng-template pTemplate="icon">
+          <i [class]="getIcon(incident.statusIncident.name)" class="tag-icon"></i>
+        </ng-template>
+      </p-tag>
+    </div>
+
+    <!-- Sección Detalles Maquinaria -->
+    <p-divider align="left" type="solid">
+      <b>Detalle de Maquinaria</b>
+    </p-divider>
+
+    <div class="cards-grid">
+      <ng-container>
+        <!-- PRIMERA COLUMNA -->
+        <div class="element-container">
+          <!-- Número de serie -->
+          <div>
+            <h4 class="page-subtitle">Número de Serie</h4>
+            <i class="pi pi-hashtag icon-style"></i>
+            <span class="description-span">
+              {{ incident.shovel.serialNumber }}
+            </span>
+          </div>
+
+          <!-- Marca -->
+          <div>
+            <h4 class="page-subtitle">Marca</h4>
+            <i class="pi pi-tag icon-style"></i>
+            <span class="description-span">
+              {{ incident.shovel.brand }}
+            </span>
+          </div>
+
+          <!-- Modelo -->
+          <div>
+            <h4 class="page-subtitle">Modelo</h4>
+            <i class="pi pi-box icon-style"></i>
+            <span class="description-span">
+              {{ incident.shovel.model }}
+            </span>
+          </div>
+        </div>
+
+        <!-- SEGUNDA COLUMNA -->
+        <div class="element-container">
+          <!-- Estado Operacional + Dropdown -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Estado Operacional</h4>
+
+            <div class="cards-grid">
+              <p-tag [value]="incident.shovel.status.name" [severity]="getSeverity(incident.shovel.status.name)">
+              </p-tag>
+
+              <p-select [options]="estadosOperacionales" formControlName="estadoOperacional" optionLabel="label"
+                optionValue="value" placeholder="Seleccionar estado"
+                (onChange)="onEstadoOperacionalChanged()"></p-select>
+
+              <small *ngIf="estadoOperacionalInvalido" style="color: #e53935; font-weight: 600">
+                ⚠ No puedes seleccionar <b>Online</b> cuando el incidente está
+                <b>Aprobado</b> o <b>En Espera</b>.
+              </small>
+            </div>
+
+            <!-- Mensaje informativo -->
+            <small *ngIf="estadoOperacionalActualizado" class="info-text">
+              Estado operacional actualizado al cambiar.
+            </small>
+          </div>
+
+          <!-- Descripción del Estado -->
+          <div>
+            <h4 class="page-subtitle">Descripción del Estado</h4>
+            <i class="pi pi-info-circle icon-style"></i>
+            <span class="description-span">
+              {{ incident.shovel.status.description }}
+            </span>
+          </div>
+
+          <!-- Última actualización -->
+          <div>
+            <h4 class="page-subtitle">Última Actualización</h4>
+            <i class="pi pi-calendar icon-style"></i>
+            <span class="description-span">
+              {{ incident.shovel.dateTime }}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- seeccion Detalles Inicdente-->
+    <p-divider align="left" type="solid">
+      <b>Detalle de Incidente</b>
+    </p-divider>
+
+    <div class="cards-grid">
+      <ng-container>
+        <!-- COLUMNA 1 -->
+        <div class="element-container">
+          <!-- ID Incidente -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Id Incidente</h4>
+            <div class="info-value">
+              <i class="pi pi-hashtag icon-style"></i>
+              <span class="description-span">
+                {{ incident.idINCIDNT }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Fecha y Hora -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Fecha y Hora</h4>
+            <div class="info-value">
+              <i class="pi pi-calendar icon-style"></i>
+              <span class="description-span">
+                {{ incident.datetime | date:'dd/MM/yyyy HH:mm:ss':'UTC-6' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Estado del Incidente + dropdown -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Estado</h4>
+
+            <div class="cards-grid">
+              <!-- Estado Actual (TAG en verde, rojo, etc.) -->
+              <p-tag [value]="incident.statusIncident.name" [severity]="getSeverity(incident.statusIncident.name)">
+              </p-tag>
+
+              <!-- NUEVO SELECT (REEMPLAZO DEL DROPDOWN) -->
+              <p-select [options]="estadosIncidente" formControlName="estadoIncidente" optionLabel="label"
+                optionValue="value" placeholder="Seleccionar estado" (onChange)="onEstadoIncidenteChanged()">
+              </p-select>
+            </div>
+
+            <!-- Mensaje que aparece al cambiar -->
+            <small *ngIf="estadoIncidenteActualizado" class="info-text">
+              Estado actualizado al cambiar.
+            </small>
+          </div>
+        </div>
+
+        <!-- COLUMNA 2 -->
+        <div class="element-container">
+          <!-- Descripción del incidente -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Descripción del Incidente</h4>
+            <div class="info-value">
+              <i class="pi pi-info-circle icon-style"></i>
+              <span class="description-span">
+                {{ incident.description }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Observaciones -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Observaciones</h4>
+
+            <div class="info-value">
+              <i class="pi pi-file-edit icon-style"></i>
+
+              <!-- Observación actual (solo lectura) -->
+              <span class="description-span">
+                {{ incident.observation ?? helperValue }}
+              </span>
+
+              <!-- Campo editable -->
+              <textarea pTextarea rows="5" cols="30" formControlName="observaciones"
+                placeholder="Agregar observaciones (máx. 250 palabras)" styleClass="p-inputtextarea"
+                class="obs-textarea"></textarea>
+
+              <!-- Contador de palabras -->
+              <span class="word-counter">
+                {{ currentWordCount }} / {{ maxWords }} palabras
+              </span>
+
+              <!-- Error por exceso de palabras -->
+              <small *ngIf="incidentForm.get('observaciones')?.errors?.['maxWords']" class="error-text">
+                Excediste el máximo permitido ({{ maxWords }} palabras).
+              </small>
+
+              <!-- Error por requerido -->
+              <small
+                *ngIf="incidentForm.get('observaciones')?.touched && incidentForm.get('observaciones')?.errors?.['required']"
+                class="error-text">
+                Este campo es obligatorio.
+              </small>
+            </div>
+          </div>
+
+          <!-- Usuario reportante -->
+          <div class="detail-row">
+            <h4 class="page-subtitle">Usuario Reportante</h4>
+            <div class="info-value">
+              <i class="pi pi-user icon-style"></i>
+              <span class="description-span">
+                {{ incident.idUser }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- seeccion evidencia fotografica-->
+
+    <p-divider align="left" type="solid">
+      <b>Evidencia fotografica</b>
+    </p-divider>
+
+    <div class="cards-grid">
+      <ng-container>
+        <!-- Columna Imagen -->
+        <div class="element-container">
+          <div>
+            <h4 class="page-subtitle">Imagen</h4>
+
+            <p-image [src]="incident.image.path" alt="Evidencia Incidente" width="250" [preview]="true"
+              styleClass="image-formate">
+            </p-image>
+          </div>
+        </div>
+
+        <!-- Columna Datos de la imagen -->
+        <div class="element-container">
+          <!-- Nombre archivo -->
+          <div>
+            <h4 class="page-subtitle">Nombre Archivo</h4>
+            <i class="pi pi-file icon-style"></i>
+            <span class="description-span">
+              {{ incident.image.rawName }}
+            </span>
+          </div>
+
+          <!-- Fecha de captura -->
+          <div>
+            <h4 class="page-subtitle">Fecha Captura</h4>
+            <i class="pi pi-calendar icon-style"></i>
+            <span class="description-span">
+              {{ incident.image.dateTimePic }}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <p-divider></p-divider>
+
+    <!-- Botón de guardar-->
+    <div class="footer-actions">
+      <p-button label="Actualziar Incidente" icon="pi pi-save" severity="success" [style]="{ width: '200px' }"
+        (onClick)="actualizarIncidente()"></p-button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <div class="error-container" style="text-align: center; padding: 2rem">
+    <i class="pi pi-exclamation-triangle" style="font-size: 3rem; color: #f59e0b; margin-bottom: 1rem">
+    </i>
+
+    <h2 class="page-title" style="color: red">Incidente no encontrado</h2>
+    <p>No existen registros para este identificador.</p>
+  </div>
+</ng-template>

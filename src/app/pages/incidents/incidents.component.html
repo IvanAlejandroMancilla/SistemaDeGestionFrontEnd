@@ -1,0 +1,213 @@
+<div class="page-container">
+  <h2 class="page-title">Gestión de Incidencias</h2>
+  <h3 class="page-subtitle">
+    Control y seguimiento de incidentes operacionales de la flota
+  </h3>
+
+  <div class="cards-grid">
+    <ng-container *ngIf="resumenIncident; else loading">
+      <div class="element-container">
+        <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Total de Incidentes</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.total }}
+        </span>
+        <span class="textspan">Historico</span>
+      </div>
+
+      <div class="element-container">
+        <i
+          class="pi pi-exclamation-circle"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Abiertos</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.abierto }}
+        </span>
+        <span class="textspan">Requieren atención</span>
+      </div>
+
+      <div class="element-container">
+        <i
+          class="pi pi-verified"
+          style="font-size: 2rem; color: #3b82f6"
+        ></i>
+        <h4 class="page-subtitle">Incidentes Aprobados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.aprobado }}
+        </span>
+        <span class="textspan">Prioridad máxima</span>
+      </div>
+
+      <div class="element-container">
+        <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Finalizados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.finalizado }}
+        </span>
+        <span class="textspan">Incidentes concluidos</span>
+      </div>
+
+      <div class="element-container">
+        <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+        <h4 class="page-subtitle">Incidentes Cancelados</h4>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">
+          {{ resumenIncident.cancelado }}
+        </span>
+        <span class="textspan">Falsos Positivos</span>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <p-progress-spinner ariaLabel="loading" />
+      <!-- O un mensaje simple: <p>Cargando datos...</p> -->
+    </ng-template>
+    <!-- <div class="element-container">
+      <i class="pi pi-chart-line" style="font-size: 2rem; color: #3b82f6"></i>
+      <h4 class="page-subtitle">Total de Incidentes</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
+      <span class="textspan">Historico</span>
+    </div>
+
+    <div class="element-container">
+      <i
+        class="pi pi-exclamation-circle"
+        style="font-size: 2rem; color: #3b82f6"
+      ></i>
+      <h4 class="page-subtitle">Incidentes Abiertos</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
+      <span class="textspan">Requieren atención</span>
+    </div>
+
+    <div class="element-container">
+      <i class="pi pi-times-circle" style="font-size: 2rem; color: #3b82f6"></i>
+      <h4 class="page-subtitle">Incidentes Aprobado</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0</span>
+      <span class="textspan">Prioridad máxima</span>
+    </div>
+
+    <div class="element-container">
+      <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+      <h4 class="page-subtitle">Incidentes Finalizado</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0h</span>
+      <span class="textspan">Incidentes concluidos</span>
+    </div>
+        <div class="element-container">
+      <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+      <h4 class="page-subtitle">Incidentes Cancelados</h4>
+      <span style="font-size: 2.5rem; font-weight: 700; color: #2c3e50">0h</span>
+      <span class="textspan">Falsos Positivos</span>
+    </div> -->
+  </div>
+
+  <!--container Tabla-->
+  <div class="table-container">
+    <h2 class="page-title">Lista de Incidentes</h2>
+    <h3 class="page-subtitle">
+      Gestión y seguimiento de todos los incidentes reportados
+    </h3>
+
+    <!--Tabla -->
+
+    <p-table
+      [value]="incidents"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Fecha/Hora</th>
+          <th>Pala</th>
+          <th>Marca</th>
+          <th>Estado Pala</th>
+          <th>Estado Incidente</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.idINCIDNT }}</td>
+          <td>{{ formatDate(item.datetime) }}</td>
+          <td>{{ item.shovel?.serialNumber }}</td>
+          <td>{{ item.shovel?.brand }}</td>
+          <!-- <td>{{ item.shovel?.status?.name }}</td> -->
+          <td>
+            <p-tag
+              *ngIf="item.shovel?.status?.name"
+              [value]="item.shovel.status.name"
+              [severity]="getSeverity(item.shovel.status.name)"
+              [rounded]="true"
+            >
+            </p-tag>
+          </td>
+          <!-- <td>{{ item.statusIncident?.name }}</td> -->
+          <td>
+            <p-tag
+              *ngIf="item.statusIncident?.name"
+              [value]="item.statusIncident.name"
+              [severity]="getSeverity(item.statusIncident.name)"
+              [rounded]="true"
+            >
+            </p-tag>
+          </td>
+
+          <td class="actions-cell">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-eye"
+              class="p-button-text p-button-rounded p-button-sm"
+              (click)="viewIncident(item)"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-text p-button-rounded p-button-sm"
+              (click)="editIncident(item)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+<p-dialog
+  header="Detalle de Incidente"
+  [modal]="true"
+  [draggable]="false"
+  [maximizable]="true"
+  [resizable]="true"
+  [(visible)]="visibleView"
+  [style]="{ width: '50rem' }"
+  [appendTo]="'body'"
+>
+  <app-incident-info-dialog
+    *ngIf="visibleView"
+    [incidentId]="selectedIncidentId">
+  </app-incident-info-dialog>
+</p-dialog>
+
+
+<p-dialog
+  header="Editar Incidente"
+  [modal]="true"
+  [draggable]="false"
+  [maximizable]="true"
+  [resizable]="true"
+  [(visible)]="visibleEdit"
+  [style]="{ width: '50rem' }"
+  [appendTo]="'body'"
+>
+  <app-incident-edit-dialog
+    *ngIf="visibleEdit"
+    [incidentId]="selectedIncidentId">
+  </app-incident-edit-dialog>
+</p-dialog>
+
+</div>
