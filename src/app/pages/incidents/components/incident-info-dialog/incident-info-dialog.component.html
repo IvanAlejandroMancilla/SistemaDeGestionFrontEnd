@@ -72,7 +72,7 @@
         <h4 class="page-subtitle">Última Actualización</h4>
         <i class="pi pi-calendar icon-style"></i>
         <span class="description-span">
-          {{ incident.shovel.dateTime }}
+          {{ incident.shovel.dateTime | date:'dd/MM/yyyy HH:mm:ss':'UTC-6'}}
         </span>
       </div>
     </div>
@@ -103,7 +103,7 @@
         <div class="info-value">
           <i class="pi pi-calendar icon-style"></i>
           <span class="description-span">
-            {{ incident.datetime }}
+            {{ incident.datetime | date:'dd/MM/yyyy HH:mm:ss':'UTC-6'}}
           </span>
         </div>
       </div>
@@ -185,7 +185,7 @@
       <h4 class="page-subtitle">Fecha Captura</h4>
       <i class="pi pi-calendar icon-style"></i>
       <span class="description-span">
-        {{ incident.image.dateTimePic }}
+        {{ incident.image.dateTimePic | date:'dd/MM/yyyy HH:mm:ss':'UTC-6' }}
       </span>
     </div>
   </div>

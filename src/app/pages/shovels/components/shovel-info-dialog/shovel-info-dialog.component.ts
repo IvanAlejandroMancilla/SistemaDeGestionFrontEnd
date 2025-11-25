@@ -39,7 +39,7 @@ export class ShovelInfoDialogComponent implements OnInit, OnChanges {
   error: boolean = false;
   rawResponse: any = null;
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     if (this.shovelId) {
@@ -137,8 +137,6 @@ export class ShovelInfoDialogComponent implements OnInit, OnChanges {
   private calculateIncidentStats() {
     const list = this.incidents || [];
 
-    this.incidentStats.total = list.length;
-
     this.incidentStats.abiertos = list.filter(x =>
       x.statusIncident?.name?.toLowerCase() === 'abierto'
     ).length;
@@ -154,6 +152,7 @@ export class ShovelInfoDialogComponent implements OnInit, OnChanges {
     this.incidentStats.aprobados = list.filter(x =>
       x.statusIncident?.name?.toLowerCase() === 'aprobado'
     ).length;
+    this.incidentStats.total = this.incidentStats.abiertos + this.incidentStats.finalizados + this.incidentStats.espera + this.incidentStats.aprobados;
   }
 
  /* data: any;
