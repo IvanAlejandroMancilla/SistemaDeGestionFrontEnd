@@ -12,8 +12,7 @@
         <ng-container *ngIf="resumenIncident; else loading">
           <div class="container-module">
             <i
-              class="pi pi-exclamation-circle"
-              style="font-size: 2rem; color: #3b82f6"
+              class="pi pi-exclamation-circle icon-danger"
             ></i>
             <h4 class="page-subtitle">Incidentes Abiertos</h4>
             <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
@@ -23,8 +22,8 @@
           </div>
           <div class="container-module">
             <i
-              class="pi pi-verified"
-              style="font-size: 2rem; color: #3b82f6"
+              class="pi pi-verified icon-warning"
+
             ></i>
             <h4 class="page-subtitle">Incidentes Aprobados</h4>
             <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
@@ -34,7 +33,7 @@
           </div>
 
           <div class="container-module">
-            <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
+            <i class="pi pi-clock icon-success"></i>
             <h4 class="page-subtitle">Incidentes Finalizados</h4>
             <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
               {{ resumenIncident.Finalizado }}
@@ -74,45 +73,39 @@
     <ng-container *ngIf="resumenShovels; else loading">
 
       <div class="container-module">
-        <i
-          class="pi pi-exclamation-circle"
-          style="font-size: 2rem; color: #3b82f6"
-        ></i>
-        <h4 class="page-subtitle">Incidentes Abiertos</h4>
+       <i class="pi pi-check-circle icon-success"></i>
+        <h4 class="page-subtitle">Palas en Linea</h4>
         <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
           {{ resumenShovels.Online }}
         </span>
-        <span class="textspan">Requieren atención</span>
+        <span class="textspan">En operación normal</span>
       </div>
 
       <div class="container-module">
-        <i
-          class="pi pi-verified"
-          style="font-size: 2rem; color: #3b82f6"
-        ></i>
-        <h4 class="page-subtitle">Incidentes Aprobados</h4>
+        <i class="pi pi-wrench icon-warning"></i>
+        <h4 class="page-subtitle">Palas en mantenimiento</h4>
         <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
           {{ resumenShovels.Mantenimiento }}
         </span>
-        <span class="textspan">Prioridad máxima</span>
+        <span class="textspan">Programado y correctivo</span>
       </div>
 
       <div class="container-module">
-        <i class="pi pi-clock" style="font-size: 2rem; color: #3b82f6"></i>
-        <h4 class="page-subtitle">Incidentes Finalizados</h4>
+        <i class="pi pi-power-off icon-danger"></i>
+        <h4 class="page-subtitle">Palas Fuera de Linea</h4>
         <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
           {{ resumenShovels.Offline }}
         </span>
-        <span class="textspan">Incidentes concluidos</span>
+        <span class="textspan">Palas Fuera de Servicio</span>
       </div>
 
       <div class="container-module">
-        <i class="pi pi-ban" style="font-size: 2rem; color: #3b82f6"></i>
+        <i class="pi pi-chart-line icon-info"></i>
         <h4 class="page-subtitle">Incidentes Cancelados</h4>
         <span style="font-size: 1.5rem; font-weight: 700; color: #2c3e50">
           {{ resumenShovels.Total }}
         </span>
-        <span class="textspan">Falsos Positivos</span>
+        <span class="textspan">Flota completa</span>
       </div>
 
     </ng-container>
@@ -121,17 +114,17 @@
       <!-- loading -->
     </ng-template>
   </div>
-
+<!--
   <div class="flex-progress-bar" style="margin-top: 20px">
     <h4 class="page-subtitle">Total de Palas</h4>
     <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
       {{ resumenShovels.Total }}
     </span>
-  </div>
+  </div> -->
 
   <div class="flex-progress-bar" style="margin-top: 20px">
     <h4 class="page-subtitle">Disponibilidad</h4>
-    <span style="font-size: 1.2rem; font-weight: 500; color: #2c3e50">
+    <span style="font-size: 1.7rem; font-weight: 700; color: #2c3e50">
       {{ (resumenShovels.Online / resumenShovels.Total) * 100 | number:'1.0-1' }}%
     </span>
   </div>

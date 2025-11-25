@@ -162,7 +162,7 @@ export class IncidentsComponent implements OnInit {
         return 'warn';
       case 'aprobado':
         return 'info';
-      case 'en espera':
+      case 'cancelado':
         return 'secondary';
       case 'finalizado':
         return 'success';

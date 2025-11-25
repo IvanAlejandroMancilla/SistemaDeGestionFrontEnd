@@ -151,3 +151,24 @@
   color: #2c3e50;
   margin: 0 0 .5rem 0
 }
+
+
+.icon-success {
+  font-size: 2rem;
+  color: #10b981; /* Verde */
+}
+
+.icon-warning {
+  font-size: 2rem;
+  color: #f59e0b; /* Naranja/Amarillo */
+}
+
+.icon-danger {
+  font-size: 2rem;
+  color: #ef4444; /* Rojo */
+}
+
+.icon-info {
+  font-size: 2rem;
+  color: #3b82f6; /* Azul */
+}

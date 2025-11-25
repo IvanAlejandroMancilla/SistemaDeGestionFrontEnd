@@ -72,7 +72,7 @@ export class IncidentEditDialogComponent implements OnInit {
   estadosIncidente = [
     { label: 'Abierto', value: 1 },
     { label: 'Aprobado', value: 2 },
-    { label: 'En Espera', value: 3 },
+    { label: 'Cancelado', value: 3 },
     { label: 'Finalizado', value: 4 },
   ];
   estadosOperacionales = [
@@ -179,7 +179,7 @@ export class IncidentEditDialogComponent implements OnInit {
     const observaciones = this.incidentForm.get('observaciones')?.value;
 
     // Regla especial:
-    if (estadoIncidente === 2 && estadoOperacional !== 2) {
+    if (estadoIncidente === 2 && estadoOperacional !== 1) {
       alert('Para aprobar un incidente, la pala debe pasar a Mantenimiento.');
       return;
     }
@@ -236,7 +236,7 @@ export class IncidentEditDialogComponent implements OnInit {
     const estadoOperacional = this.incidentForm.get('estadoOperacional')?.value;
 
     const incidenteRestringido =
-      estadoIncidente === 2 || estadoIncidente === 3;
+      estadoIncidente === 2;
 
     // Estado "Online" ahora es value = 1
     if (incidenteRestringido && estadoOperacional === 1) {
@@ -272,9 +272,9 @@ export class IncidentEditDialogComponent implements OnInit {
 
     switch (s) {
       case 'abierto':
+      case 'cancelado':
         return 'warn';
       case 'aprobado':
-      case 'en espera':
       case 'mantenimiento':
         return 'info';
       case 'finalizado':
