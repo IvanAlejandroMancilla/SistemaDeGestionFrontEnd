@@ -61,7 +61,7 @@ export class ShovelsComponent {
 
   ngOnInit(): void {
 
-  timer(0, 3000).subscribe(() => { this.loadDashboardSummary();this.loadShovels();});
+  timer(0, 6000).subscribe(() => { this.loadDashboardSummary();this.loadShovels();});
   }
 
   // MÓDULO: DASHBOARD
