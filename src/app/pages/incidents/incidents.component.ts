@@ -105,7 +105,7 @@ export class IncidentsComponent implements OnInit {
 
 ngOnInit(): void {
   // Ejecuta inmediatamente y luego cada 3 segundos
-  timer(0, 3000).subscribe(() => {
+  timer(0, 6000).subscribe(() => {
     this.loadIncidents();
     this.loadDashboardSummary();
   });
