@@ -57,6 +57,7 @@ export class IncidentEditDialogComponent implements OnInit {
   observation: string = '';
   incident: IncidentDetail | null = null;
   incidentForm!: FormGroup;
+  apiIncidentsUpdateObservationPatch: any
   @Input() incidentId?: number;
   maxWords = 250;
   loading = true;
@@ -203,6 +204,8 @@ export class IncidentEditDialogComponent implements OnInit {
           detail: 'El incidente fue actualizado correctamente.',
           life: 3000
         });
+        //esto carga el edit info incideent (actualiza al guardar)
+        this.loadIncident(this.incidentId!);
       },
       error: (err) => {
         console.error('Error al actualizar incidente:', err);
@@ -317,6 +320,6 @@ export class IncidentEditDialogComponent implements OnInit {
         return 'pi pi-info-circle';
     }
   }
-  apiIncidentsUpdateObservationPatch: any
+
 
 }
