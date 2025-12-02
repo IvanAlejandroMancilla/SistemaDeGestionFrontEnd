@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { IncidentEditDialogComponent } from './components/incident-edit-dialog/incident-edit-dialog.component';
 import { IncidentInfoDialogComponent } from './components/incident-info-dialog/incident-info-dialog.component';
 import { RouterOutlet } from '@angular/router';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -96,11 +97,20 @@ export class IncidentsComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
+  // ngOnInit() {
+  //   this.loadIncidents();
+  //   this.loadDashboardSummary();
+  //   console.log(this.loadIncidents);
+  // }
+
+ngOnInit(): void {
+  // Ejecuta inmediatamente y luego cada 3 segundos
+  timer(0, 3000).subscribe(() => {
     this.loadIncidents();
     this.loadDashboardSummary();
-    console.log(this.loadIncidents);
-  }
+  });
+}
+
 
   loadIncidents() {
   this.loading = true;
