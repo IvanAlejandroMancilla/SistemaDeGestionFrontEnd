@@ -5,6 +5,59 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/ApiKeysControllers": {
+      "post": {
+        "tags": [
+          "ApiKeysControllers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ApiKeysControllers/validarApiKey/{apikey}": {
+      "get": {
+        "tags": [
+          "ApiKeysControllers"
+        ],
+        "parameters": [
+          {
+            "name": "apikey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Dashboard/Dashboard": {
       "get": {
         "tags": [
@@ -276,6 +329,16 @@
   },
   "components": {
     "schemas": {
+      "ApiKeyRequestDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "IncidentInsertDto": {
         "type": "object",
         "properties": {
