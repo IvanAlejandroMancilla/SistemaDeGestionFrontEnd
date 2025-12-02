@@ -98,7 +98,7 @@ getSeverity(status?: string):
       return 'warn';
     case 'aprobado':
       return 'info';
-    case 'en espera':
+    case 'cancelado':
     case 'mantenimiento':
       return 'secondary';
     case 'finalizado':
@@ -114,72 +114,3 @@ getSeverity(status?: string):
 
   }
 
-// @Input() incidentId?: number;
-// data: IncidentData | null = null;
-// loading: boolean = false;
-
-// incidentData: IncidentData | null = null;
-
-// constructor(
-//   private http: HttpClient,
-//   private route: ActivatedRoute,
-//   private router: Router
-// ) {}
-
-// ngOnInit() {
-//   console.log('ngOnInit - incidentId:', this.incidentId);
-// }
-
-// ngOnChanges(changes: SimpleChanges) {
-//   if (changes['incidentId'] && changes['incidentId'].currentValue) {
-//     console.log('ngOnChanges - incidentId:', changes['incidentId'].currentValue);
-//     this.loadIncident(changes['incidentId'].currentValue);
-//   }
-// }
-
-//  loadIncident(idINCIDNT: number) {
-//   this.loading = true;
-//   const rootUrl = environment.urlBack;
-
-//   apiIncidentsIncidentByIdIdIncidntGet(
-//     this.http,
-//     rootUrl,
-//     { idINCIDNT }
-//   ).subscribe({
-//     next: (response: any) => {
-//       const body = typeof response.body === 'string'
-//         ? JSON.parse(response.body)
-//         : response.body;
-
-//       this.data = body; // Cambié incidentData por data
-//       this.loading = false;
-//     },
-//     error: (error: any) => {
-//       console.error('Error loading incident:', error);
-//       this.loading = false;
-//     }
-//   });
-// }
-
-// getSeverity(status: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
-//   if (!status) return 'contrast';
-
-//   switch (status.toLowerCase()) {
-//     case 'abierto':
-//       return 'warn';
-//     case 'aprobado':
-//       return 'info';
-//     case 'en espera':
-//       return 'secondary';
-//     case 'finalizado':
-//       return 'success';
-//     case 'online':
-//       return 'success';
-//     case 'offline':
-//       return 'danger';
-//     case 'mantenimiento':
-//       return 'warn';
-//     default:
-//       return 'contrast';
-//   }
-//

@@ -161,7 +161,7 @@ export class ShovelsComponent {
     switch (status.toLowerCase()) {
       case 'abierto': return 'warn';
       case 'aprobado': return 'info';
-      case 'en espera': return 'secondary';
+      case 'cancelado': return 'secondary';
       case 'finalizado': return 'success';
 
       case 'online': return 'success';

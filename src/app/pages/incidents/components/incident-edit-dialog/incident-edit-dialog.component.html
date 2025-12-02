@@ -8,14 +8,14 @@
 
       <!-- Estado de la Pala -->
       <p-tag [value]="incident.shovel.status.name" [severity]="getSeverity(incident.shovel.status.name)">
-        <ng-template pTemplate="icon">
+        <ng-template>
           <i [class]="getIcon(incident.shovel.status.name)" class="tag-icon"></i>
         </ng-template>
       </p-tag>
 
       <!-- Estado del Incidente -->
       <p-tag [value]="incident.statusIncident.name" [severity]="getSeverity(incident.statusIncident.name)">
-        <ng-template pTemplate="icon">
+        <ng-template>
           <i [class]="getIcon(incident.statusIncident.name)" class="tag-icon"></i>
         </ng-template>
       </p-tag>
@@ -74,7 +74,7 @@
 
               <small *ngIf="estadoOperacionalInvalido" style="color: #e53935; font-weight: 600">
                 ⚠ No puedes seleccionar <b>Online</b> cuando el incidente está
-                <b>Aprobado</b> o <b>En Espera</b>.
+                <b>Aprobado</b>.
               </small>
             </div>
 

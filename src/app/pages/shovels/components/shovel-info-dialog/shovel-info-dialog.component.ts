@@ -110,7 +110,7 @@ export class ShovelInfoDialogComponent implements OnInit, OnChanges {
         return 'warn';
       case 'aprobado':
         return 'info';
-      case 'en espera':
+      case 'cancelado':
       case 'mantenimiento':
         return 'secondary';
       case 'finalizado':
@@ -155,35 +155,7 @@ export class ShovelInfoDialogComponent implements OnInit, OnChanges {
     this.incidentStats.total = this.incidentStats.abiertos + this.incidentStats.finalizados + this.incidentStats.espera + this.incidentStats.aprobados;
   }
 
- /* data: any;
-  options: any;
 
-  //grafico
-  generateChart() {
-  this.data = {
-    labels: ['Total', 'En Espera', 'Abiertos', 'Aprobados', 'Finalizados'],
-    datasets: [
-      {
-        label: 'Incidentes',
-        data: [
-          this.incidentStats.total,
-          this.incidentStats.espera,
-          this.incidentStats.abiertos,
-          this.incidentStats.aprobados,
-          this.incidentStats.finalizados
-        ],
-        fill: false,
-        borderColor: '#3B82F6',
-        tension: 0.3
-      }
-    ]
-  };
-
-  this.options = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-}*/
 
 
 }

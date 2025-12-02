@@ -179,7 +179,7 @@ export class IncidentEditDialogComponent implements OnInit {
     const observaciones = this.incidentForm.get('observaciones')?.value;
 
     // Regla especial:
-    if (estadoIncidente === 2 && estadoOperacional !== 1) {
+    if (estadoIncidente === 2 && estadoOperacional === 1) {
       alert('Para aprobar un incidente, la pala debe pasar a Mantenimiento.');
       return;
     }
@@ -298,8 +298,8 @@ export class IncidentEditDialogComponent implements OnInit {
       case 'aprobado':
         return 'pi pi-check-circle';
 
-      case 'en espera':
-        return 'pi pi-clock';
+      case 'cancelado':
+        return 'pi pi-ban';
 
       case 'mantenimiento':
         return 'pi pi-wrench';
