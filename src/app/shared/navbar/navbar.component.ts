@@ -38,11 +38,11 @@ export class NavbarComponent {
       route: '/palaselectricas',
       icon: 'pi pi-wrench'
     },
-    {
-      label: 'Administrador',
-      route: '/administrador',
-      icon: 'pi pi-cog'
-    }
+    // {
+    //   label: 'Administrador',
+    //   route: '/administrador',
+    //   icon: 'pi pi-cog'
+    // }
   ];
 
   constructor(private router: Router) {}

@@ -57,6 +57,7 @@ export class IncidentEditDialogComponent implements OnInit {
   observation: string = '';
   incident: IncidentDetail | null = null;
   incidentForm!: FormGroup;
+  apiIncidentsUpdateObservationPatch: any
   @Input() incidentId?: number;
   maxWords = 250;
   loading = true;
@@ -179,7 +180,7 @@ export class IncidentEditDialogComponent implements OnInit {
     const observaciones = this.incidentForm.get('observaciones')?.value;
 
     // Regla especial:
-    if (estadoIncidente === 2 && estadoOperacional !== 1) {
+    if (estadoIncidente === 2 && estadoOperacional === 1) {
       alert('Para aprobar un incidente, la pala debe pasar a Mantenimiento.');
       return;
     }
@@ -203,6 +204,8 @@ export class IncidentEditDialogComponent implements OnInit {
           detail: 'El incidente fue actualizado correctamente.',
           life: 3000
         });
+        //esto carga el edit info incideent (actualiza al guardar)
+        this.loadIncident(this.incidentId!);
       },
       error: (err) => {
         console.error('Error al actualizar incidente:', err);
@@ -298,8 +301,8 @@ export class IncidentEditDialogComponent implements OnInit {
       case 'aprobado':
         return 'pi pi-check-circle';
 
-      case 'en espera':
-        return 'pi pi-clock';
+      case 'cancelado':
+        return 'pi pi-ban';
 
       case 'mantenimiento':
         return 'pi pi-wrench';
@@ -317,6 +320,6 @@ export class IncidentEditDialogComponent implements OnInit {
         return 'pi pi-info-circle';
     }
   }
-  apiIncidentsUpdateObservationPatch: any
+
 
 }

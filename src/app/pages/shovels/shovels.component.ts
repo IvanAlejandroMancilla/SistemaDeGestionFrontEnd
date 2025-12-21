@@ -12,6 +12,8 @@ import { PanelModule } from 'primeng/panel';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { ShovelInfoDialogComponent } from './components/shovel-info-dialog/shovel-info-dialog.component';
+import { timer } from 'rxjs';
+
 
 @Component({
   selector: 'app-shovels',
@@ -57,10 +59,9 @@ export class ShovelsComponent {
 
   estado: string = 'operativa'; // 'operativa', 'offline', 'mantenimiento'
 
-  // CICLO DE VIDA
   ngOnInit(): void {
-    this.loadDashboardSummary();
-    this.loadShovels();
+
+  timer(0, 3000).subscribe(() => { this.loadDashboardSummary();this.loadShovels();});
   }
 
   // MÓDULO: DASHBOARD
@@ -161,7 +162,7 @@ export class ShovelsComponent {
     switch (status.toLowerCase()) {
       case 'abierto': return 'warn';
       case 'aprobado': return 'info';
-      case 'en espera': return 'secondary';
+      case 'cancelado': return 'secondary';
       case 'finalizado': return 'success';
 
       case 'online': return 'success';
